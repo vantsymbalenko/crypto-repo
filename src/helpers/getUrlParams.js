@@ -6,8 +6,7 @@ export const getUrlParams = (location) => {
         decode = function (s) { return decodeURIComponent(s.replace(pl, " ")); },
         query  = location.search.substring(1);
     urlParams = {};
-    while (match)
-        match = search.exec(query);
+    while ( match = search.exec(query))
         urlParams[decode(match[1])] = decode(match[2]);
 
     return urlParams;

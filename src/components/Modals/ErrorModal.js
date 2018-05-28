@@ -1,20 +1,21 @@
 import React from "react";
 import PropTypes from "prop-types";
+import styled from 'styled-components';
 import { connect } from "react-redux";
-import { SlideModalToLeft } from "./SlideModalToLeft";
+import SlideModalToLeft from "./SlideModalToLeft";
 import { TextNode } from "./TextNode";
 import { AdditionalTextNode } from "./AdditionalTextNode";
-import { toggleErrorModal } from "../../actions/toggleErrorModal";
+import {toggleErrorModal} from "../../actions/modals/errorModal";
 
 const ErrorModal = props => {
   return (
-    <SlideModalToLeft
+    <ErrorModalBody
       show={props.isShowErrorModal}
       toggleToLeftModal={props.toggleErrorModal}
     >
       <TextNode>{props.errorCode}</TextNode>
       <AdditionalTextNode>{props.errorMessage}</AdditionalTextNode>
-    </SlideModalToLeft>
+    </ErrorModalBody>
   );
 };
 
@@ -37,3 +38,8 @@ const mapStateToDispatch = {
 };
 
 export default connect(mapStateToProps, mapStateToDispatch)(ErrorModal);
+
+
+const ErrorModalBody = styled(SlideModalToLeft)`
+  z-index: 999;
+`;

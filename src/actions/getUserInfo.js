@@ -4,7 +4,7 @@ import {
 } from "../constants/authConst";
 import { fire, firebaseFirestore } from "../FirebaseConfig/Fire";
 import { FIREBASE_COLLECTION_USER } from "../constants/appConst";
-import { toggleErrorModal } from "./toggleErrorModal";
+import {toggleErrorModal} from "./modals/errorModal";
 import { preSignInStatus } from "./preSignInStatus";
 import { enableButton } from "./enableButton";
 

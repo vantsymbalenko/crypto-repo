@@ -1,6 +1,6 @@
 import React from "react";
 import styled from "styled-components";
-import {connect} from 'react-redux';
+import { connect } from "react-redux";
 import PropTypes from "prop-types";
 import { Link } from "react-router-dom";
 import {
@@ -10,6 +10,7 @@ import {
   passwordRule
 } from "../../validationRules/rules";
 import Validation from "react-validation-utils";
+import { toggleSignUpSuccessModal } from "../../actions/modals/signUpModals";
 
 /*** components ***/
 import { Input } from "../../components/Input";
@@ -97,7 +98,8 @@ class FormSignUp extends React.Component {
       // validate all fields in the state to show all error messages
       return this.setState(Validator.validate());
     }
-    this.props.registerNewUser(this.state, this.props.toggleToLeftModal);
+    // this.props.toggleSignUpSuccessModal();
+    this.props.registerNewUser(this.state);
   };
 
   toggleModal = () => {
@@ -230,7 +232,11 @@ class FormSignUp extends React.Component {
             </Link>
           </Paragraph>
         </RulesText>
-        <Button type={"submit"} onClick={this.onSubmit} disabled={this.props.authStatus === PRESIGN_IN}>
+        <Button
+          type={"submit"}
+          onClick={this.onSubmit}
+          disabled={this.props.authStatus === PRESIGN_IN}
+        >
           Sign Up Now
         </Button>
       </Form>
@@ -239,16 +245,16 @@ class FormSignUp extends React.Component {
 }
 
 FormSignUp.propTypes = {
-  toggleToLeftModal: PropTypes.func,
   toggle: PropTypes.bool
 };
 
-const mapStateToProps = (state) => ({
+const mapStateToProps = state => ({
   authStatus: state.authData.authStatus
 });
 
 const mapStateToDispatch = {
-  registerNewUser
+  registerNewUser,
+  toggleSignUpSuccessModal
 };
 
 export default connect(mapStateToProps, mapStateToDispatch)(FormSignUp);
@@ -256,7 +262,7 @@ export default connect(mapStateToProps, mapStateToDispatch)(FormSignUp);
 const Form = styled.form`
   padding: 17px;
   transition: all 0.3s ease-in-out;
-  margin-left: ${props => (props.toggle ? "0" : props.toggle ? "0" : "-100vw")};
+  margin-left: ${props => (props.toggle ? "0" : "-100vw")};
 `;
 const TwoInputRows = styled.div`
   display: flex;
@@ -357,8 +363,8 @@ const Button = styled.button`
     cursor: pointer;
     background-image: linear-gradient(to top, #4eace0, #2a64b4);
   }
-  &[disabled]{
-     background: #1f1f2f;
+  &[disabled] {
+    background: #1f1f2f;
   }
 `;
 const ImgFlag = styled.img`

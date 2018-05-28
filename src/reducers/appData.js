@@ -1,5 +1,4 @@
 import { SET_LOADER } from "../constants/appConst";
-import { ERROR_MODAL } from "../constants/authConst";
 
 const initialState = {
   isLoading: false,
@@ -16,13 +15,7 @@ export const appData = (state = initialState, action) => {
         isLoading: action.payload
       };
     }
-    case ERROR_MODAL: {
-      return {
-        ...state,
-        isShowErrorModal: !state.isShowErrorModal,
-        ...action.payload
-      };
-    }
+
     default:
       return state;
   }

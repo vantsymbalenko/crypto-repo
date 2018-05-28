@@ -8,6 +8,7 @@ export const Input = props => {
       width={props.width}
       marginRight={props.marginRight}
       borderColor={props.borderColor}
+      marginTop={props.marginTop}
     >
       <Label labelMargin={props.labelMargin}>{props.labelText}</Label>
       <Wrapper rowReverse={props.rowReverse}>
@@ -31,10 +32,12 @@ Input.defaultProps = {
   type: "text",
   labelMargin : "24px 0 5px 0",
   rowReverse : false,
+  marginTop: "0"
 };
 
 Input.propTypes = {
   width: PropTypes.string,
+  marginTop: PropTypes.string,
   labelText: PropTypes.string,
   placeholder: PropTypes.string,
   borderColor: PropTypes.string,
@@ -51,6 +54,7 @@ const Block = styled.div`
   width: ${props => props.width};
   margin-right: ${props => props.marginRight};
   box-shadow: inset 0 -1px 0 0 ${props => props.borderColor};
+  margin-top: ${props => props.marginTop}
 `;
 
 const Label = styled.label`

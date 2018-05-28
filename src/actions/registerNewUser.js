@@ -2,9 +2,10 @@ import { FIREBASE_COLLECTION_USER } from "../constants/appConst";
 import { fire, firebaseFirestore } from "../FirebaseConfig/Fire";
 import { preSignInStatus } from "./preSignInStatus";
 import { enableButton } from "./enableButton";
-import { toggleErrorModal } from "./toggleErrorModal";
+import {toggleErrorModal} from "./modals/errorModal";
+import { toggleSignUpSuccessModal } from "./modals/signUpModals";
 
-export const registerNewUser = (data, toggleToLeftModal) => {
+export const registerNewUser = (data) => {
   const { email, password, validationStorage, ...rest } = data;
   return dispatch => {
     /*** disable button ***/
@@ -26,7 +27,7 @@ export const registerNewUser = (data, toggleToLeftModal) => {
               .auth()
               .currentUser.sendEmailVerification()
               .then(() => {
-                toggleToLeftModal();
+                dispatch(toggleSignUpSuccessModal());
                 dispatch(enableButton());
               });
           })

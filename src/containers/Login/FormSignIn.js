@@ -8,9 +8,9 @@ import { Link } from "react-router-dom";
 import { EXTERNAL_LINK_HELP_LOGIN_PAGE } from "../../constants/appConst";
 import { emailRule } from "../../validationRules/rules";
 import getBorderColor from "../../helpers/getBorderColor";
-import { auth } from "../../actions/auth";
 import { getUserInfo } from "../../actions/getUserInfo";
 import { PRESIGN_IN } from "../../constants/authConst";
+import {toggleResetPasswordModal} from "../../actions/modals/loginModals";
 
 const Validator = new Validation({
   email: {
@@ -46,6 +46,11 @@ class FormSignIn extends React.Component {
     this.props.getUserInfo(this.state.email, this.state.password);
   };
 
+  toggleResetModal = (e) => {
+    e.preventDefault();
+    this.props.toggleResetPasswordModal();
+  };
+
   render() {
     return (
       <Form>
@@ -66,7 +71,9 @@ class FormSignIn extends React.Component {
           value={this.state.password}
           rowReverse
         >
-          <HelpLink to={`/reset-password`}>Reset Password</HelpLink>
+          <ButtonShowModal onClick={this.toggleResetModal}>
+            Reset Password
+          </ButtonShowModal>
         </Input>
         <Input
           name={"googleCode"}
@@ -101,15 +108,17 @@ class FormSignIn extends React.Component {
   }
 }
 
-FormSignIn.propTypes = {};
+FormSignIn.propTypes = {
+  toggleToLeftModal: PropTypes.func
+};
 
 const mapStateToProps = state => ({
   authStatus: state.authData.authStatus
 });
 
 const mapStateToDispatch = {
-  auth,
-  getUserInfo
+  getUserInfo,
+  toggleResetPasswordModal
 };
 export default connect(mapStateToProps, mapStateToDispatch)(FormSignIn);
 
@@ -137,7 +146,7 @@ const Button = styled.button`
   letter-spacing: 0.8px;
   color: #ffffff;
   background-image: linear-gradient(to top, #4eace0, #2a64b4);
-  position: fixed;
+  position: absolute;
   left: 0;
   right: 0;
   bottom: 45px;
@@ -166,6 +175,12 @@ const styleForExternalLink = () => css`
   }
 `;
 
+const ButtonShowModal = styled.button`
+  ${styleForExternalLink()}; 
+  background: none;
+  border: none;
+`;
+
 const HelpLink = styled(Link)`
   ${styleForExternalLink()};
 `;
@@ -188,7 +203,7 @@ const AdditionalInfo = styled.div`
   ${props =>
     props.toBottom &&
     css`
-      position: fixed;
+      position: absolute;
       bottom: 77px;
       width: 100%;
       left: 0;

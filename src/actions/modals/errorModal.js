@@ -1,4 +1,4 @@
-import { ERROR_MODAL } from "../constants/authConst";
+import {ERROR_MODAL} from "../../constants/authConst";
 
 export const toggleErrorModal = data => {
   return {

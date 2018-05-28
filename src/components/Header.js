@@ -22,6 +22,7 @@ const HeaderNode = styled.header`
   justify-content: center;
   align-items: center;
   margin-top: 56px;
+  height: auto;
   margin-left: ${props => (props.toggle ? "0" : "-100vw")};
   transition: all 0.3s ease-in-out;
 `;

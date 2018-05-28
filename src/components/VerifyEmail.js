@@ -1,7 +1,7 @@
 import React from "react";
 import styled from "styled-components";
 import {withRouter} from 'react-router-dom';
-import { SlideModalToLeft } from "./Modals/SlideModalToLeft";
+import SlideModalToLeft from "./Modals/SlideModalToLeft";
 import { TextNode } from "./Modals/TextNode";
 import { AdditionalTextNode } from "./Modals/AdditionalTextNode";
 import {getUrlParams} from "../helpers/getUrlParams";
