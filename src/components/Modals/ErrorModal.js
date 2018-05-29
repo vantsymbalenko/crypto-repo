@@ -27,9 +27,9 @@ ErrorModal.propTypes = {
 
 const mapStateToProps = state => {
   return {
-    isShowErrorModal: state.appData.isShowErrorModal,
-    errorCode: state.appData.errorCode,
-    errorMessage: state.appData.errorMessage
+    isShowErrorModal: state.modals.errorModal.isShowErrorModal,
+    errorCode: state.modals.errorModal.errorCode,
+    errorMessage: state.modals.errorModal.errorMessage
   };
 };
 

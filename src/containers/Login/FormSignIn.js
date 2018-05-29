@@ -8,7 +8,7 @@ import { Link } from "react-router-dom";
 import { EXTERNAL_LINK_HELP_LOGIN_PAGE } from "../../constants/appConst";
 import { emailRule } from "../../validationRules/rules";
 import getBorderColor from "../../helpers/getBorderColor";
-import { getUserInfo } from "../../actions/getUserInfo";
+import { getUserInfo } from "../../actions/signIn";
 import { PRESIGN_IN } from "../../constants/authConst";
 import {toggleResetPasswordModal} from "../../actions/modals/loginModals";
 
@@ -71,7 +71,7 @@ class FormSignIn extends React.Component {
           value={this.state.password}
           rowReverse
         >
-          <ButtonShowModal onClick={this.toggleResetModal}>
+          <ButtonShowModal type={`button`} onClick={this.toggleResetModal}>
             Reset Password
           </ButtonShowModal>
         </Input>
@@ -94,7 +94,7 @@ class FormSignIn extends React.Component {
         </AdditionalInfo>
         <AdditionalInfo toBottom>
           Don't have an account?
-          <HelpLink to={`/sign-in`}>Sign Up</HelpLink>
+          <HelpLink to={`/sign-up`}>Sign Up</HelpLink>
         </AdditionalInfo>
         <Button
           type={`submit`}

@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
 import { Switch, Route, withRouter } from "react-router-dom";
+import {fire} from "./FirebaseConfig/Fire";
 
 /*** containers ***/
 import PrivateRoute from "./components/Wrappers/PrivateRoute";
@@ -13,6 +14,14 @@ import VerifyEmail from "./components/VerifyEmail";
 import ErrorModal from './components/Modals/ErrorModal';
 
 class App extends Component {
+    componentDidMount(){
+        fire.auth().onAuthStateChanged((user) => {
+            console.log("user", user);
+            if(user){
+
+            }
+        })
+    }
    render() {
     return [
       <ErrorModal key={1} />,
