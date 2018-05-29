@@ -6,7 +6,7 @@ export default class Home extends Component {
   render() {
     return(
         <HomeBody>
-
+            <div style={{color: "#fff", fontSize: "48px"}}>Home</div>
         </HomeBody>
     );
   }

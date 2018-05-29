@@ -1,6 +1,6 @@
 import { FIREBASE_COLLECTION_USER } from "../constants/appConst";
 import { fire, firebaseFirestore } from "../FirebaseConfig/Fire";
-import { preSignInStatus } from "./preSignInStatus";
+import { preSignInStatus } from "./auth/preSignInStatus";
 import { enableButton } from "./enableButton";
 import {toggleErrorModal} from "./modals/errorModal";
 import { toggleSignUpSuccessModal } from "./modals/signUpModals";

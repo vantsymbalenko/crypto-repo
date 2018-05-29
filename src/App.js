@@ -2,7 +2,10 @@ import React, { Component } from "react";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
 import { Switch, Route, withRouter } from "react-router-dom";
-import {fire} from "./FirebaseConfig/Fire";
+import {getUserInfo} from "./actions/auth/getUserInfo";
+import {signInSuccess} from "./actions/auth/signInSuccess";
+import PageHeader from './components/PageHeader';
+import MenuModal from './components/Modals/MenuModal';
 
 /*** containers ***/
 import PrivateRoute from "./components/Wrappers/PrivateRoute";
@@ -12,19 +15,14 @@ import SignUp from "./containers/SignUp/SignUp";
 import { NotFound } from "./components/NotFound/NotFound";
 import VerifyEmail from "./components/VerifyEmail";
 import ErrorModal from './components/Modals/ErrorModal';
+import { AUTH_USER } from "./constants/authConst";
 
 class App extends Component {
-    componentDidMount(){
-        fire.auth().onAuthStateChanged((user) => {
-            console.log("user", user);
-            if(user){
-
-            }
-        })
-    }
    render() {
     return [
       <ErrorModal key={1} />,
+      this.props.authStatus === AUTH_USER ? <PageHeader key={3}/> : null,
+      <MenuModal key={4}/>,
       <Switch key={2}>
         <Route exact path={`/login`} component={Login} />
         <Route exact path={`/sign-up`} component={SignUp} />
@@ -39,11 +37,16 @@ class App extends Component {
 /*** connect ***/
 const mapStateToProps = state => {
   return {
-    isLoading: state.appData.isLoading
+    isLoading: state.appData.isLoading,
+    authStatus: state.authData.authStatus,
+    isShowMenuModal: state.modals.isShowMenuModal
   };
 };
 
-const mapStateToDispatch = {};
+const mapStateToDispatch = {
+  getUserInfo,
+  signInSuccess
+};
 
 export default withRouter(connect(mapStateToProps, mapStateToDispatch)(App));
 

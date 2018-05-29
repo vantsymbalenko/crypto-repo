@@ -8,7 +8,7 @@ import { Link } from "react-router-dom";
 import { EXTERNAL_LINK_HELP_LOGIN_PAGE } from "../../constants/appConst";
 import { emailRule } from "../../validationRules/rules";
 import getBorderColor from "../../helpers/getBorderColor";
-import { getUserInfo } from "../../actions/signIn";
+import {signIn } from "../../actions/auth/signIn";
 import { PRESIGN_IN } from "../../constants/authConst";
 import {toggleResetPasswordModal} from "../../actions/modals/loginModals";
 
@@ -43,7 +43,7 @@ class FormSignIn extends React.Component {
       // validate all fields in the state to show all error messages
       return this.setState(Validator.validate());
     }
-    this.props.getUserInfo(this.state.email, this.state.password);
+    this.props.signIn(this.state.email, this.state.password);
   };
 
   toggleResetModal = (e) => {
@@ -117,7 +117,7 @@ const mapStateToProps = state => ({
 });
 
 const mapStateToDispatch = {
-  getUserInfo,
+  signIn,
   toggleResetPasswordModal
 };
 export default connect(mapStateToProps, mapStateToDispatch)(FormSignIn);

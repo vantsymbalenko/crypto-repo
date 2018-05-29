@@ -1,5 +1,5 @@
-import {FIREBASE_COLLECTION_USER} from "../constants/appConst";
-import {firebaseFirestore} from "../FirebaseConfig/Fire";
+import {FIREBASE_COLLECTION_USER} from "../../constants/appConst";
+import {firebaseFirestore} from "../../FirebaseConfig/Fire";
 import {signInSuccess} from "./signInSuccess";
 
 export const getUserInfo = (uid) => {

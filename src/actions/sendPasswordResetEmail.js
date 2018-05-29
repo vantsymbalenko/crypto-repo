@@ -1,5 +1,5 @@
 import { fire } from "../FirebaseConfig/Fire";
-import { preSignInStatus } from "./preSignInStatus";
+import { preSignInStatus } from "./auth/preSignInStatus";
 import { enableButton } from "./enableButton";
 import { toggleSuccessResetPasswordModal } from "./modals/loginModals";
 import { toggleErrorModal } from "./modals/errorModal";

@@ -1,20 +1,14 @@
 import {
   EMAIL_NOT_VERIFIED_MESSAGE,
-  GET_USER_INFO
-} from "../constants/authConst";
-import { fire, firebaseFirestore } from "../FirebaseConfig/Fire";
-import { FIREBASE_COLLECTION_USER } from "../constants/appConst";
-import {toggleErrorModal} from "./modals/errorModal";
+} from "../../constants/authConst";
+import { fire } from "../../FirebaseConfig/Fire";
+import {toggleErrorModal} from "../modals/errorModal";
 import { preSignInStatus } from "./preSignInStatus";
-import { enableButton } from "./enableButton";
-import {signInSuccess} from "./signInSuccess";
+import { enableButton } from "../enableButton";
+import {getUserInfo} from "./getUserInfo";
 
-// const signInSuccess = data => ({
-//   type: GET_USER_INFO,
-//   payload: data
-// });
 
-export const getUserInfo = (email, password) => {
+export const signIn = (email, password) => {
     console.log("arguments", arguments);
   return dispatch => {
     /*** disable sign in button ***/
@@ -26,13 +20,7 @@ export const getUserInfo = (email, password) => {
       .then(response => {
         if (response.user && response.user.emailVerified) {
           const uid = fire.auth().currentUser.uid;
-          firebaseFirestore
-            .collection(FIREBASE_COLLECTION_USER)
-            .doc(uid)
-            .get()
-            .then(response => {
-              dispatch(signInSuccess(response.data()));
-            });
+          dispatch(getUserInfo(uid));
         } else {
           dispatch(
             toggleErrorModal({

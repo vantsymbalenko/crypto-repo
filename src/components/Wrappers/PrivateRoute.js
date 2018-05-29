@@ -1,32 +1,45 @@
 import React from "react";
-import { PropTypes } from "prop-types";
+import PropTypes from "prop-types";
 import { connect } from "react-redux";
 import { withRouter, Route, Redirect } from "react-router-dom";
-import { NOT_AUTH } from "../../constants/authConst";
+import { NOT_AUTH, NONE, REQ } from "../../constants/authConst";
+import {getUserStatus} from "../../actions/auth/getUserStatus";
 
-const PrivateRoute = ({ component: Component, authStatus, ...rest }) => {
-  return (
-    <Route
-      {...rest}
-      render={props =>
-        authStatus !== NOT_AUTH ? (
-          <Component {...props} />
-        ) : (
-          <Redirect to={{ pathname: `/login` }} />
-        )
-      }
-    />
-  );
-};
+class PrivateRoute  extends  React.Component{
+  componentDidMount(){
+    this.props.getUserStatus();
+  }
+  render(){
+    const { component: Component, authStatus,reqStatus, ...rest } = this.props;
+
+    if((authStatus === NOT_AUTH) && (reqStatus === NONE)){
+      return <div style={{color: "#fff", fontSize:"48px"}}>Loading...</div>
+    }
+
+    if((authStatus === NOT_AUTH) && (reqStatus === REQ)){
+      return <Redirect to={`/`}/>
+    }
+
+    return (
+      <Route
+        {...rest}
+        render={props => (<Component {...props} />)}
+      />
+    );
+  }
+}
 
 /*** connect to Redux ***/
 const mapStateToProps = state => {
   return {
-    authStatus: state.authData.authStatus
+    authStatus: state.authData.authStatus,
+    reqStatus: state.authData.reqStatus
   };
 };
 
-const mapStateToDispatch = {};
+const mapStateToDispatch = {
+  getUserStatus
+};
 
 export default withRouter(
   connect(mapStateToProps, mapStateToDispatch)(PrivateRoute)

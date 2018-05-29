@@ -1,7 +1,9 @@
-import { AUTH_USER, PRESIGN_IN, NOT_AUTH, GET_USER_INFO } from "../constants/authConst";
+import { AUTH_USER, PRESIGN_IN, NOT_AUTH, GET_USER_INFO, NONE } from "../constants/authConst";
 
 const initialState = {
   authStatus: NOT_AUTH,
+  reqStatus: NONE,
+  usersData: {}
 };
 
 export const authData = (state = initialState, action) => {

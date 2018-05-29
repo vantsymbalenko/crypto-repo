@@ -17,6 +17,7 @@ class Login extends Component {
     if (this.props.authStatus === AUTH_USER) {
       return <Redirect to={{ pathname: `/` }} />;
     }
+
     return [
       <Modals key={1}/>,
       <LoginBody key={2} hide={isHide}>

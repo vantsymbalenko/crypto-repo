@@ -1,5 +1,5 @@
 import { ERROR_MODAL } from "../constants/authConst";
-import { LOGIN_RESET_PASSWORD_MODAL, SIGN_UP_SUCCESS_MODAL, SUCCESS_RESET_PASSWORD_MODAL } from "../constants/modals";
+import { LOGIN_RESET_PASSWORD_MODAL, SIGN_UP_SUCCESS_MODAL, SUCCESS_RESET_PASSWORD_MODAL, MENU } from "../constants/modals";
 
 const initialState = {
   errorModal: {
@@ -13,7 +13,8 @@ const initialState = {
   loginModal: {
     isShowLoginResetPasswordModal: false,
     isShowLoginSuccessResetPasswordModal: false
-  }
+  },
+  isShowMenuModal: false
 };
 export const modals = (state = initialState, action) => {
   switch (action.type) {
@@ -51,6 +52,12 @@ export const modals = (state = initialState, action) => {
           isShowLoginSuccessResetPasswordModal: !state.loginModal.isShowLoginSuccessResetPasswordModal
         }
       };
+    }
+    case MENU: {
+      return{
+        ...state,
+        isShowMenuModal: !state.isShowMenuModal
+      }
     }
     default: {
       return state;
