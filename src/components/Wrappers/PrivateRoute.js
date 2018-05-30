@@ -17,7 +17,7 @@ class PrivateRoute  extends  React.Component{
     }
 
     if((authStatus === NOT_AUTH) && (reqStatus === REQ)){
-      return <Redirect to={`/`}/>
+      return <Redirect to={`/login`}/>
     }
 
     return (

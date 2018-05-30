@@ -36,7 +36,7 @@ export default withRouter(connect(mapStateToProps, mapStateToDispatch)(PageHeade
 
 const PageHeaderBody = styled.div`
   position: relative;
-  padding: 51px 21px;
+  padding: 48px 21px;
   display: flex;
   flex-direction: row;
 `;

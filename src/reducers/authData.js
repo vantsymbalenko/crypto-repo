@@ -1,4 +1,4 @@
-import { AUTH_USER, PRESIGN_IN, NOT_AUTH, GET_USER_INFO, NONE } from "../constants/authConst";
+import {AUTH_USER, PRESIGN_IN, NOT_AUTH, GET_USER_INFO, NONE, REQ} from "../constants/authConst";
 
 const initialState = {
   authStatus: NOT_AUTH,
@@ -29,6 +29,12 @@ export const authData = (state = initialState, action) => {
         authStatus: NOT_AUTH
       }
     }
+      case REQ: {
+        return {
+            ...state,
+            reqStatus: REQ
+        }
+      }
     default:
       return state;
   }

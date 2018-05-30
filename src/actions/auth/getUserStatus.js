@@ -1,6 +1,6 @@
-import {REQ} from "../../constants/authConst";
-import {fire} from "../../FirebaseConfig/Fire";
-import {getUserInfo} from "./getUserInfo";
+import { REQ } from "../../constants/authConst";
+import { fire } from "../../FirebaseConfig/Fire";
+import { getUserInfo } from "./getUserInfo";
 
 const reqStatus = () => ({
   type: REQ
@@ -8,13 +8,14 @@ const reqStatus = () => ({
 
 export const getUserStatus = () => {
   return dispatch => {
-    return fire.auth().onAuthStateChanged((user) => {
-      if(user){
-        dispatch(getUserInfo(user.uid));
-        dispatch(reqStatus());
-      }else{
+    return fire.auth().onAuthStateChanged(user => {
+      if (user) {
+        dispatch(getUserInfo(user.uid)).then(() => {
+          dispatch(reqStatus());
+        });
+      } else {
         dispatch(reqStatus());
       }
-    })
-  }
+    });
+  };
 };

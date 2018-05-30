@@ -16,6 +16,7 @@ import { NotFound } from "./components/NotFound/NotFound";
 import VerifyEmail from "./components/VerifyEmail";
 import ErrorModal from './components/Modals/ErrorModal';
 import { AUTH_USER } from "./constants/authConst";
+import AccountSettings from './containers/Account/AccountSettings';
 
 class App extends Component {
    render() {
@@ -28,6 +29,7 @@ class App extends Component {
         <Route exact path={`/sign-up`} component={SignUp} />
         <Route exact path={`/verify-email`} component={VerifyEmail}/>
         <PrivateRoute exact path={`/`} component={Home} />
+        <PrivateRoute exact path={`/account-settings`} component={AccountSettings}/>
         <Route component={NotFound} />
       </Switch>
     ];
