@@ -93,11 +93,13 @@ class FormSignIn extends React.Component {
           Google 2-Factor-Authentication (2FA) is required during all sign-in
           attempts.
         </AdditionalInfo>
+
+        {this.props.secret ? <QRCode /> : null}
+
         <AdditionalInfo toBottom>
           Don't have an account?
           <HelpLink to={`/sign-up`}>Sign Up</HelpLink>
         </AdditionalInfo>
-          {this.props.secret ? <QRCode /> : null}
         <Button
           type={`submit`}
           onClick={this.onEnter}

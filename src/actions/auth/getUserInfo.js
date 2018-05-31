@@ -1,6 +1,7 @@
 import {FIREBASE_COLLECTION_USER} from "../../constants/appConst";
-import {firebaseFirestore, firestoreDB} from "../../FirebaseConfig/Fire";
+import {firebaseFirestore} from "../../FirebaseConfig/Fire";
 import {signInSuccess} from "./signInSuccess";
+import { toggleErrorModal } from "../modals/errorModal";
 
 export const getUserInfo = (uid) => {
     return dispatch =>
@@ -10,12 +11,17 @@ export const getUserInfo = (uid) => {
         .get()
         .then((response) => {
             const data = response.data();
-            if(data.secret && data.firstLogin){
-                dispatch(signInSuccess(response.data()));
+            if(data.secret){
+                dispatch(signInSuccess(data));
+            }else {
+              return data;
             }
-            return response.data();
         })
         .catch((err) => {
-            console.log("err",err);
-        })
+          const error = {
+            errorCode: err.code,
+            errorMessage: err.message
+          };
+          dispatch(toggleErrorModal(error));
+        });
 };
