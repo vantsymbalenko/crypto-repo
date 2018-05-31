@@ -11,6 +11,7 @@ import getBorderColor from "../../helpers/getBorderColor";
 import {signIn } from "../../actions/auth/signIn";
 import { PRESIGN_IN } from "../../constants/authConst";
 import {toggleResetPasswordModal} from "../../actions/modals/loginModals";
+import QRCode from '../../components/QRCode';
 
 const Validator = new Validation({
   email: {
@@ -43,7 +44,7 @@ class FormSignIn extends React.Component {
       // validate all fields in the state to show all error messages
       return this.setState(Validator.validate());
     }
-    this.props.signIn(this.state.email, this.state.password);
+    this.props.signIn(this.state.email, this.state.password, this.state.googleCode, this.props.secret);
   };
 
   toggleResetModal = (e) => {
@@ -96,6 +97,7 @@ class FormSignIn extends React.Component {
           Don't have an account?
           <HelpLink to={`/sign-up`}>Sign Up</HelpLink>
         </AdditionalInfo>
+          {this.props.secret ? <QRCode /> : null}
         <Button
           type={`submit`}
           onClick={this.onEnter}
@@ -113,7 +115,8 @@ FormSignIn.propTypes = {
 };
 
 const mapStateToProps = state => ({
-  authStatus: state.authData.authStatus
+  authStatus: state.authData.authStatus,
+    secret: state.authData.secret
 });
 
 const mapStateToDispatch = {
@@ -146,7 +149,6 @@ const Button = styled.button`
   letter-spacing: 0.8px;
   color: #ffffff;
   background-image: linear-gradient(to top, #4eace0, #2a64b4);
-  position: absolute;
   left: 0;
   right: 0;
   bottom: 45px;
@@ -203,7 +205,7 @@ const AdditionalInfo = styled.div`
   ${props =>
     props.toBottom &&
     css`
-      position: absolute;
+    
       bottom: 77px;
       width: 100%;
       left: 0;

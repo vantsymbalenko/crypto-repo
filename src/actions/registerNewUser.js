@@ -20,7 +20,8 @@ export const registerNewUser = (data) => {
           .collection(FIREBASE_COLLECTION_USER)
           .doc(uid)
           .set({
-            ...rest
+            ...rest,
+              firstLogin: false
           })
           .then(() => {
             fire

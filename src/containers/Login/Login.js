@@ -10,6 +10,7 @@ import { AUTH_USER } from "../../constants/authConst";
 // import SendEmailResetPassword from "../ResetPassword/SendEmailResetPassword";
 import Modals from './Modals';
 import { getModalStatus } from "../../helpers/getModalStatus";
+import QRCode from '../../components/QRCode';
 
 class Login extends Component {
   render() {
@@ -23,6 +24,7 @@ class Login extends Component {
       <LoginBody key={2} hide={isHide}>
         <Header toggle={true} headerText={"Log In"} />
         <FormSignIn toggleToLeftModal={this.toggleToLeftModal}/>
+
       </LoginBody>
     ];
   }
@@ -35,7 +37,7 @@ Login.propTypes = {
 const mapStateToProps = state => {
   return {
     authStatus: state.authData.authStatus,
-    loginModal: state.modals.loginModal
+    loginModal: state.modals.loginModal,
   };
 };
 

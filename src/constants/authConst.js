@@ -9,3 +9,5 @@ export const NONE = "NONE";
 export const REQ = "REQ";
 export const SAVE_CHANGES = "SAVE_CHANGES";
 export const IMAGE_FOLDER = "/profilesFoto/";
+export const VERIFY_GOOGLE_CODE_ADDRESS = "http://192.168.88.60:3000/";
+export const ENABLE_GOOGLE_AUTH = "ENABLE_GOOGLE_AUTH";
