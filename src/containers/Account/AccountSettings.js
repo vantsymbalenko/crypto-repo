@@ -15,6 +15,7 @@ import { getFlagUrl } from "../../helpers/getFlagUrl";
 import { EXTERNAL_LINK_HELP_LOGIN_PAGE } from "../../constants/appConst";
 import { Link } from "react-router-dom";
 import { fire } from "../../FirebaseConfig/Fire";
+import {saveChanges} from "../../actions/auth/saveChangesInProfile";
 
 const Validator = new Validation({
   email: {
@@ -81,6 +82,11 @@ class AccountSettings extends React.Component {
     this.setState({
       isShowModal: !this.state.isShowModal
     });
+  };
+
+  submit = (e) => {
+    e.preventDefault();
+    this.props.saveChanges(this.state, this.file.files[0]);
   };
 
   render() {
@@ -167,14 +173,14 @@ class AccountSettings extends React.Component {
             </HelpExternalLink>
           </Input>
         </RowWithHeader>
-        <ButtonShowModal>Reset my Password</ButtonShowModal>
+        <ButtonShowModal type={`button`}>Reset my Password</ButtonShowModal>
         <BottomContent>
           <AdditionalText>
             {" "}
             Want to delete your account? Please contact
             support@dripfoundation.io
           </AdditionalText>
-          <Button type={`submit`} click={this.submit}>
+          <Button type={`submit`} onClick={this.submit}>
             Save settings
           </Button>
         </BottomContent>
@@ -193,7 +199,9 @@ const mapStateToProps = state => {
   };
 };
 
-const mapStateToDispatch = {};
+const mapStateToDispatch = {
+  saveChanges
+};
 
 export default connect(mapStateToProps, mapStateToDispatch)(AccountSettings);
 

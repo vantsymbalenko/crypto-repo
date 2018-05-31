@@ -7,3 +7,5 @@ export const EMAIL_NOT_VERIFIED_MESSAGE =
 export const NOT_AUTH = "NOT_AUTH";
 export const NONE = "NONE";
 export const REQ = "REQ";
+export const SAVE_CHANGES = "SAVE_CHANGES";
+export const IMAGE_FOLDER = "/profilesFoto/";

@@ -6,8 +6,9 @@ import { Link } from "react-router-dom";
 import { toggleMenu } from "../../actions/modals/toggleMenu";
 import { menuRoutes, additionalMenuRoutes } from "../../constants/menuRoutes";
 import { MenuItem } from "../Menu/MenuItem";
-import imgLogoSrc from '../../images/logo.png';
-import profileFotoImgSrc from '../../images/foto.png';
+import imgLogoSrc from "../../images/logo.png";
+import profileFotoImgSrc from "../../images/foto.png";
+import { signOut } from "../../actions/auth/signOut";
 
 class MenuModal extends React.Component {
   close = e => {
@@ -16,7 +17,7 @@ class MenuModal extends React.Component {
     }
   };
   render() {
-    const {firstName, lastName} = this.props.usersData;
+    const { firstName, lastName } = this.props.usersData;
     return (
       <MenuBody
         isShowMenuModal={this.props.isShowMenuModal}
@@ -27,7 +28,7 @@ class MenuModal extends React.Component {
           innerRef={node => (this.menuList = node)}
         >
           <LogoRoute to={`/`}>
-            <ImgLogo src={imgLogoSrc}/>
+            <ImgLogo src={imgLogoSrc} />
           </LogoRoute>
           <MenuList>
             {menuRoutes.map((item, index) => {
@@ -44,7 +45,7 @@ class MenuModal extends React.Component {
           <AccountSettings>
             <ProfileBlock to={`/account-settings`}>
               <ProfileFoto>
-                <ImgProfile src={profileFotoImgSrc}/>
+                <ImgProfile src={profileFotoImgSrc} />
               </ProfileFoto>
               <UserTitle>
                 <UserName>{`${firstName} ${lastName}`}</UserName>
@@ -52,19 +53,27 @@ class MenuModal extends React.Component {
               </UserTitle>
             </ProfileBlock>
             <AdditionalLinks>
-
-                {additionalMenuRoutes.map((item, index) => {
+              {additionalMenuRoutes.map((item, index) => {
+                if (item.title === "Logout") {
                   return (
-                    <MenuItem
-                      key={index}
-                      title={item.title}
-                      route={item.route}
-                      external={item.external}
-                    />
+                    <Button key={index} onClick={this.props.signOut}>
+                      {item.title}
+                    </Button>
                   );
-                })}
+                }
+                return (
+                  <MenuItem
+                    key={index}
+                    title={item.title}
+                    route={item.route}
+                    external={item.external}
+                  />
+                );
+              })}
             </AdditionalLinks>
-            <ReferAFriendLink to={`refer-a-friend`}>Refer a Friend</ReferAFriendLink>
+            <ReferAFriendLink to={`refer-a-friend`}>
+              Refer a Friend
+            </ReferAFriendLink>
           </AccountSettings>
         </Menu>
       </MenuBody>
@@ -85,7 +94,8 @@ const mapStateToProps = state => {
 };
 
 const mapStateToDispatch = {
-  toggleMenu
+  toggleMenu,
+  signOut
 };
 
 export default connect(mapStateToProps, mapStateToDispatch)(MenuModal);
@@ -128,18 +138,18 @@ const Menu = styled.div`
 `;
 
 const LogoRoute = styled(Link)`
-display: block;
-width: 100%;
-text-align: center;
-margin-top: 50px;
+  display: block;
+  width: 100%;
+  text-align: center;
+  margin-top: 50px;
 `;
 const MenuList = styled.ul`
   width: 100%;
-  text-align:center;
+  text-align: center;
 `;
 
 const ImgLogo = styled.img`
-  width:68px;
+  width: 68px;
   height: 35px;
 `;
 
@@ -147,7 +157,7 @@ const AccountSettings = styled.div`
   height: 100%;
   display: flex;
   flex-direction: column;
-  text-align:center;
+  text-align: center;
   justify-content: flex-end;
 `;
 
@@ -162,7 +172,7 @@ const ProfileFoto = styled.div`
   margin-right: 5px;
 `;
 const ImgProfile = styled.img`
-  width:40px;
+  width: 40px;
   height: 40px;
   border-radius: 50%;
 `;
@@ -200,7 +210,7 @@ const ReferAFriendLink = styled(Link)`
   width: 198px;
   height: 45px;
   border: solid 0.3px #66688f;
-   font-size: 12px;
+  font-size: 12px;
   font-weight: 300;
   font-style: normal;
   font-stretch: normal;
@@ -208,6 +218,19 @@ const ReferAFriendLink = styled(Link)`
   color: #66688f;
   text-transform: uppercase;
   line-height: 45px;
-  
 `;
 
+const Button = styled.button`
+  text-transform: uppercase;
+  font-family: Helvetica, sans-serif;
+  font-size: 12px;
+  font-weight: 300;
+  font-style: normal;
+  font-stretch: normal;
+  line-height: 1;
+  letter-spacing: 0.6px;
+  color: #66688f;
+  text-decoration: none;
+  background: none;
+  border: none;
+`;

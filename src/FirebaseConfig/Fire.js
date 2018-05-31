@@ -10,7 +10,7 @@ const config = {
     authDomain: "drip-beta.firebaseapp.com",
     databaseURL: "https://drip-beta.firebaseio.com",
     projectId: "drip-beta",
-    storageBucket: "",
+    storageBucket: "drip-beta.appspot.com",
     messagingSenderId: "602364034245"
 };
 

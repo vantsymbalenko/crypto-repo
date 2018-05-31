@@ -6,8 +6,7 @@ import { Link } from "react-router-dom";
 export const MenuItem = (props) => {
   return(
     <LiItem>
-      {
-        props.externalLink ? (
+      {props.externalLink ? (
           <MenuItemExternal href={props.route}>
             {props.title}
           </MenuItemExternal>
@@ -50,3 +49,4 @@ const MenuItemExternal = styled.a`
 const MenuItemInside = styled(Link)`
   ${styleForLink()}
 `;
+

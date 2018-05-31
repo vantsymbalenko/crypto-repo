@@ -19,6 +19,7 @@ export const authData = (state = initialState, action) => {
         ...state,
         authStatus: AUTH_USER,
         usersData: {
+            ...state.usersData,
           ...action.payload
         }
       }
