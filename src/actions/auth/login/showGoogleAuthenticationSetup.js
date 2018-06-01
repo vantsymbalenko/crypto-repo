@@ -1,6 +1,6 @@
 import { ENABLE_GOOGLE_AUTH, VERIFY_GOOGLE_CODE_ADDRESS } from "../../../constants/authConst";
 import { toggleErrorModal } from "../../modals/errorModal";
-import { enableButton } from "../../enableButton";
+import { disableButtons, enableButtons } from "../requestStatus";
 
 /*** action creater for save secret code and QRImage to redux store ***/
 const setGoogleAuthenticatorData = (secret, QRCodeImageSrc) => ({
@@ -14,7 +14,6 @@ const setGoogleAuthenticatorData = (secret, QRCodeImageSrc) => ({
 /*** request to server to get QR image path and secret word ***/
 export const showGoogleAuthenticationSetup = ()  => {
   return dispatch => {
-
     const settings = {
       method: 'POST',
       headers: {
@@ -24,12 +23,14 @@ export const showGoogleAuthenticationSetup = ()  => {
       body: null
     };
 
+    dispatch(disableButtons());
+
     return fetch(VERIFY_GOOGLE_CODE_ADDRESS + "twofactor/setup", settings)
       .then((response) => response.json())
       .then((data) => {
+        /*** save to store QRCode img and secret phrase ***/
         dispatch(setGoogleAuthenticatorData(data.tempSecret, data.dataURL));
-
-        dispatch(enableButton());
+        dispatch(enableButtons());
       })
       .catch((err) => {
         const error = {
@@ -37,7 +38,7 @@ export const showGoogleAuthenticationSetup = ()  => {
           errorMessage: err.message
         };
         dispatch(toggleErrorModal(error));
-        dispatch(enableButton());
+        dispatch(enableButtons());
       })
   }
 };

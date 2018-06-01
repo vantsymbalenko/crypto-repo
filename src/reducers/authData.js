@@ -1,6 +1,6 @@
 import {
-    AUTH_USER, PRESIGN_IN, NOT_AUTH, GET_USER_INFO, NONE, REQ, ENABLE_GOOGLE_AUTH,
-    LOGOUT
+  AUTH_USER, PRESIGN_IN, NOT_AUTH, GET_USER_INFO, NONE, REQ, ENABLE_GOOGLE_AUTH,
+  LOGOUT, REQUEST_END
 } from "../constants/authConst";
 
 const initialState = {
@@ -33,10 +33,10 @@ export const authData = (state = initialState, action) => {
         authStatus: NOT_AUTH
       }
     }
-      case REQ: {
+      case REQUEST_END: {
         return {
             ...state,
-            reqStatus: REQ
+            reqStatus: REQUEST_END
         }
       }
       case ENABLE_GOOGLE_AUTH: {

@@ -6,11 +6,8 @@ import { Redirect } from "react-router-dom";
 import { Header } from "../../components/Header";
 import FormSignIn from "./FormSignIn";
 import { AUTH_USER } from "../../constants/authConst";
-// import SlideModalToLeft from "../../components/Modals/SlideModalToLeft";
-// import SendEmailResetPassword from "../ResetPassword/SendEmailResetPassword";
 import Modals from './Modals';
 import { getModalStatus } from "../../helpers/getModalStatus";
-import QRCode from '../../components/QRCode';
 
 class Login extends Component {
   render() {

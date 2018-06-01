@@ -1,17 +1,18 @@
-import { REQ } from "../../constants/authConst";
+import { REQUEST_END } from "../../constants/authConst";
 import { fire } from "../../FirebaseConfig/Fire";
 import { getUserInfo } from "./getUserInfo";
-import {verifyGoogleCode} from "./googleApi/verifyGoogleCode";
+import { signInSuccess } from "./signInSuccess";
 
 export const reqStatus = () => ({
-  type: REQ
+  type: REQUEST_END
 });
 
 export const getUserStatus = () => {
   return dispatch => {
     return fire.auth().onAuthStateChanged(user => {
       if (user) {
-        dispatch(getUserInfo(user.uid)).then(() => {
+        dispatch(getUserInfo(user.uid)).then((response) => {
+          dispatch(signInSuccess(response));
           dispatch(reqStatus());
         });
       } else {

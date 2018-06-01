@@ -2,7 +2,7 @@ import React from "react";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
 import { withRouter, Route, Redirect } from "react-router-dom";
-import { NOT_AUTH, NONE, REQ } from "../../constants/authConst";
+import { NOT_AUTH, NONE, REQ, REQUEST_END } from "../../constants/authConst";
 import {getUserStatus} from "../../actions/auth/getUserStatus";
 import loading from '../../images/loading.gif';
 
@@ -19,7 +19,7 @@ class PrivateRoute  extends  React.Component{
       </div>
     }
 
-    if((authStatus === NOT_AUTH) && (reqStatus === REQ)){
+    if((authStatus === NOT_AUTH) && (reqStatus === REQUEST_END)){
       return <Redirect to={`/login`}/>
     }
 

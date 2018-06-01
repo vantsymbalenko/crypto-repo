@@ -9,7 +9,7 @@ import { EXTERNAL_LINK_HELP_LOGIN_PAGE } from "../../constants/appConst";
 import { emailRule } from "../../validationRules/rules";
 import getBorderColor from "../../helpers/getBorderColor";
 import {signIn } from "../../actions/auth/login/signIn";
-import { PRESIGN_IN } from "../../constants/authConst";
+import { PRESIGN_IN, REQ } from "../../constants/authConst";
 import {toggleResetPasswordModal} from "../../actions/modals/loginModals";
 import QRCode from '../../components/QRCode';
 
@@ -103,7 +103,7 @@ class FormSignIn extends React.Component {
         <Button
           type={`submit`}
           onClick={this.onEnter}
-          disabled={this.props.authStatus === PRESIGN_IN}
+          disabled={this.props.reqStatus === REQ}
         >
           Log In
         </Button>
@@ -113,11 +113,13 @@ class FormSignIn extends React.Component {
 }
 
 FormSignIn.propTypes = {
-  toggleToLeftModal: PropTypes.func
+  toggleToLeftModal: PropTypes.func,
+  reqStatus:PropTypes.string,
+  secret: PropTypes.string
 };
 
 const mapStateToProps = state => ({
-  authStatus: state.authData.authStatus,
+  reqStatus: state.appData.reqStatus,
     secret: state.authData.secret
 });
 
