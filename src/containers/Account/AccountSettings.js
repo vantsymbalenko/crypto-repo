@@ -47,7 +47,7 @@ class AccountSettings extends React.Component {
       file: "",
       isShowModal: false,
       googleCode: "",
-        src: ""
+        src: this.props.usersData.imgSrc
     });
     this.getBorderColor = getBorderColor.bind(this);
   }
@@ -134,7 +134,7 @@ class AccountSettings extends React.Component {
         <TwoInputRows>
           <Input
             value={this.state.mobile}
-            type={"tel"}
+            type={"number"}
             name={`mobile`}
             labelText={"Mobile Number"}
             marginRight={`30px`}

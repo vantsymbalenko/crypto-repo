@@ -4,6 +4,7 @@ import { connect } from "react-redux";
 import { withRouter, Route, Redirect } from "react-router-dom";
 import { NOT_AUTH, NONE, REQ } from "../../constants/authConst";
 import {getUserStatus} from "../../actions/auth/getUserStatus";
+import loading from '../../images/loading.gif';
 
 class PrivateRoute  extends  React.Component{
   componentDidMount(){
@@ -13,7 +14,9 @@ class PrivateRoute  extends  React.Component{
     const { component: Component, authStatus,reqStatus, ...rest } = this.props;
 
     if((authStatus === NOT_AUTH) && (reqStatus === NONE)){
-      return <div style={{color: "#fff", fontSize:"48px"}}>Loading...</div>
+      return <div style={{color: "#fff", fontSize:"48px"}}>
+          <img src={loading} alt="sdas" style={{width: "100%", height:"100%"}}/>
+      </div>
     }
 
     if((authStatus === NOT_AUTH) && (reqStatus === REQ)){

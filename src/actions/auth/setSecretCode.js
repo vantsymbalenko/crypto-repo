@@ -7,6 +7,6 @@ export const setSecretCode = (data) => {
     .collection(FIREBASE_COLLECTION_USER)
     .doc(uid)
     .update({
-      ...data
+        ...data
     });
 };
