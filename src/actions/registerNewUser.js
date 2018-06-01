@@ -1,56 +1,62 @@
 import { FIREBASE_COLLECTION_USER } from "../constants/appConst";
 import { fire, firebaseFirestore } from "../FirebaseConfig/Fire";
-import { preSignInStatus } from "./auth/preSignInStatus";
-import { enableButton } from "./enableButton";
-import {toggleErrorModal} from "./modals/errorModal";
+import { toggleErrorModal } from "./modals/errorModal";
 import { toggleSignUpSuccessModal } from "./modals/signUpModals";
+import { disableButtons, enableButtons } from "./auth/requestStatus";
 
-export const registerNewUser = (data) => {
+export const registerNewUser = data => {
+  /*** validation storage can pass from state of component we don't want to write this storage
+   * to firestore so we just cut this
+   * ***/
   const { email, password, validationStorage, ...rest } = data;
   return dispatch => {
     /*** disable button ***/
-    dispatch(preSignInStatus());
+    dispatch(disableButtons());
 
+    /*** create user with help of email and password ***/
     fire
       .auth()
       .createUserWithEmailAndPassword(email, password)
       .then(response => {
         const { uid } = response.user;
+
+        /***
+         *  if user was create successfully then set his data to firestore
+         *  where uid is unique id of users created by firebase library
+         *  and FIREBASE_COLLECTION_USER is name of users collection
+         */
+
         firebaseFirestore
           .collection(FIREBASE_COLLECTION_USER)
           .doc(uid)
           .set({
-            ...rest,
-              firstLogin: false
+            ...rest
           })
           .then(() => {
-            fire
-              .auth()
-              .currentUser.sendEmailVerification()
-              .then(() => {
-                dispatch(toggleSignUpSuccessModal());
-                dispatch(enableButton());
-              });
-          })
-          .catch(err => {
-            console.log("error", err);
-            dispatch(
-              toggleErrorModal({
-                errorCode: err.code,
-                errorMessage: err.message
-              })
-            );
-            dispatch(enableButton());
+
+            /*** send email verification ***/
+            sendEmailVerification().then(() => {
+
+              /*** toogle email sign up modal with confirm than user was successfully registered
+               * and on his email was send verification email
+               * ***/
+
+              dispatch(toggleSignUpSuccessModal());
+              dispatch(enableButtons());
+            });
           });
       })
       .catch(err => {
-        dispatch(
-          toggleErrorModal({
-            errorCode: err.code,
-            errorMessage: err.message
-          })
-        );
-        dispatch(enableButton());
+        const error = {
+          errorCode: err.code,
+          errorMessage: err.message
+        };
+        dispatch(toggleErrorModal(error));
+        dispatch(enableButtons());
       });
   };
+};
+
+const sendEmailVerification = () => {
+  return fire.auth().currentUser.sendEmailVerification();
 };

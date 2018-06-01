@@ -21,7 +21,6 @@ export const updateInfo = (data) => {
                   errCode: err.code,
                   errMessage: err.message
               }));
-              console.log("err",err);
           })
   }
 };

@@ -1,5 +1,5 @@
-import { PRESIGN_IN } from "../../constants/authConst";
+import {REQ} from "../../constants/authConst";
 
 export const preSignInStatus = () => ({
-  type: PRESIGN_IN
+  type: REQ
 });

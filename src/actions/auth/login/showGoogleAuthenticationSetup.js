@@ -1,6 +1,8 @@
-import { ENABLE_GOOGLE_AUTH, VERIFY_GOOGLE_CODE_ADDRESS } from "../../constants/authConst";
-import { toggleErrorModal } from "../modals/errorModal";
-import { enableButton } from "../enableButton";
+import { ENABLE_GOOGLE_AUTH, VERIFY_GOOGLE_CODE_ADDRESS } from "../../../constants/authConst";
+import { toggleErrorModal } from "../../modals/errorModal";
+import { enableButton } from "../../enableButton";
+
+/*** action creater for save secret code and QRImage to redux store ***/
 const setGoogleAuthenticatorData = (secret, QRCodeImageSrc) => ({
   type: ENABLE_GOOGLE_AUTH,
   payload: {
@@ -9,8 +11,10 @@ const setGoogleAuthenticatorData = (secret, QRCodeImageSrc) => ({
   }
 });
 
+/*** request to server to get QR image path and secret word ***/
 export const showGoogleAuthenticationSetup = ()  => {
   return dispatch => {
+
     const settings = {
       method: 'POST',
       headers: {
@@ -23,8 +27,8 @@ export const showGoogleAuthenticationSetup = ()  => {
     return fetch(VERIFY_GOOGLE_CODE_ADDRESS + "twofactor/setup", settings)
       .then((response) => response.json())
       .then((data) => {
-        console.log("show qr code action", data);
         dispatch(setGoogleAuthenticatorData(data.tempSecret, data.dataURL));
+
         dispatch(enableButton());
       })
       .catch((err) => {

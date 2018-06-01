@@ -1,10 +1,9 @@
 import { SET_LOADER } from "../constants/appConst";
+import { NONE, REQ } from "../constants/authConst";
 
 const initialState = {
   isLoading: false,
-  isShowErrorModal: false,
-  errorCode: "404",
-  errorMessage: "Some Error Message"
+  reqStatus: NONE
 };
 
 export const appData = (state = initialState, action) => {
@@ -15,7 +14,18 @@ export const appData = (state = initialState, action) => {
         isLoading: action.payload
       };
     }
-
+    case NONE: {
+      return {
+        ...state,
+        reqStatus: NONE
+      };
+    }
+    case REQ: {
+      return {
+        ...state,
+        reqStatus: REQ
+      };
+    }
     default:
       return state;
   }

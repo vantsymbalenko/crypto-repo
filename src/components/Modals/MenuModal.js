@@ -8,7 +8,7 @@ import { menuRoutes, additionalMenuRoutes } from "../../constants/menuRoutes";
 import { MenuItem } from "../Menu/MenuItem";
 import imgLogoSrc from "../../images/logo.png";
 import profileFotoImgSrc from "../../images/foto.png";
-import { signOut } from "../../actions/auth/signOut";
+import { signOut } from "../../actions/auth/logout/signOut";
 
 class MenuModal extends React.Component {
   close = e => {

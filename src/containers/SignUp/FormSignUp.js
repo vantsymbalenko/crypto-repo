@@ -21,7 +21,7 @@ import { CountriesSelect } from "../../components/CountriesSelect/CountriesSelec
 import { registerNewUser } from "../../actions/registerNewUser";
 import { getFlagUrl } from "../../helpers/getFlagUrl";
 import getBorderColor from "../../helpers/getBorderColor";
-import { PRESIGN_IN } from "../../constants/authConst";
+import {PRESIGN_IN, REQ} from "../../constants/authConst";
 
 const Validator = new Validation({
   email: {
@@ -235,7 +235,7 @@ class FormSignUp extends React.Component {
         <Button
           type={"submit"}
           onClick={this.onSubmit}
-          disabled={this.props.authStatus === PRESIGN_IN}
+          disabled={this.props.authStatus === REQ}
         >
           Sign Up Now
         </Button>
@@ -249,7 +249,7 @@ FormSignUp.propTypes = {
 };
 
 const mapStateToProps = state => ({
-  authStatus: state.authData.authStatus
+  authStatus: state.authData.reqStatus
 });
 
 const mapStateToDispatch = {

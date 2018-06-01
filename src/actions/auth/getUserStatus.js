@@ -1,7 +1,7 @@
 import { REQ } from "../../constants/authConst";
 import { fire } from "../../FirebaseConfig/Fire";
 import { getUserInfo } from "./getUserInfo";
-import {verifyGoogleCode} from "./verifyGoogleCode";
+import {verifyGoogleCode} from "./googleApi/verifyGoogleCode";
 
 export const reqStatus = () => ({
   type: REQ

@@ -1,5 +1,5 @@
-import { FIREBASE_COLLECTION_USER } from "../../constants/appConst";
-import { firebaseFirestore, fire } from "../../FirebaseConfig/Fire";
+import { FIREBASE_COLLECTION_USER } from "../../../constants/appConst";
+import { firebaseFirestore, fire } from "../../../FirebaseConfig/Fire";
 
 export const setSecretCode = (data) => {
   const uid = fire.auth().currentUser.uid;

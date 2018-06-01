@@ -3,7 +3,7 @@ import {preSignInStatus} from "./preSignInStatus";
 import firebase from 'firebase';
 import {updateInfo} from "./updateInfo";
 import {toggleErrorModal} from "../modals/errorModal";
-import {verifyGoogleCode} from "./verifyGoogleCode";
+import {verifyGoogleCode} from "./googleApi/verifyGoogleCode";
 import {fire} from "../../FirebaseConfig/Fire";
 import {getUserInfo} from "./getUserInfo";
 

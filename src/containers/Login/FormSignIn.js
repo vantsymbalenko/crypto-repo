@@ -8,7 +8,7 @@ import { Link } from "react-router-dom";
 import { EXTERNAL_LINK_HELP_LOGIN_PAGE } from "../../constants/appConst";
 import { emailRule } from "../../validationRules/rules";
 import getBorderColor from "../../helpers/getBorderColor";
-import {signIn } from "../../actions/auth/signIn";
+import {signIn } from "../../actions/auth/login/signIn";
 import { PRESIGN_IN } from "../../constants/authConst";
 import {toggleResetPasswordModal} from "../../actions/modals/loginModals";
 import QRCode from '../../components/QRCode';

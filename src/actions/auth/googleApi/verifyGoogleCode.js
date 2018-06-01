@@ -1,4 +1,4 @@
-import { VERIFY_GOOGLE_CODE_ADDRESS } from "../../constants/authConst";
+import { VERIFY_GOOGLE_CODE_ADDRESS } from "../../../constants/authConst";
 
 export const verifyGoogleCode = (secret, code) => {
   const settings = {
