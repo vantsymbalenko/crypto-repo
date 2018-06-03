@@ -23,7 +23,8 @@ export const modals = (state = initialState, action) => {
         ...state,
         errorModal: {
           isShowErrorModal: !state.errorModal.isShowErrorModal,
-          ...action.payload
+          errorCode: action.payload.errorCode,
+          errorMessage: action.payload.errorMessage
         }
       };
     }
