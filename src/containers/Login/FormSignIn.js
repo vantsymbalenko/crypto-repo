@@ -9,7 +9,7 @@ import { EXTERNAL_LINK_HELP_LOGIN_PAGE } from "../../constants/appConst";
 import { emailRule } from "../../validationRules/rules";
 import getBorderColor from "../../helpers/getBorderColor";
 import {signIn } from "../../actions/auth/login/signIn";
-import { PRESIGN_IN, REQ } from "../../constants/authConst";
+import { REQ } from "../../constants/authConst";
 import {toggleResetPasswordModal} from "../../actions/modals/loginModals";
 import QRCode from '../../components/QRCode';
 
@@ -120,7 +120,7 @@ FormSignIn.propTypes = {
 
 const mapStateToProps = state => ({
   reqStatus: state.appData.reqStatus,
-    secret: state.authData.secret
+  secret: state.authData.secret
 });
 
 const mapStateToDispatch = {

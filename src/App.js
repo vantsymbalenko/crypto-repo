@@ -2,8 +2,6 @@ import React, { Component } from "react";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
 import { Switch, Route, withRouter } from "react-router-dom";
-import {getUserInfo} from "./actions/auth/getUserInfo";
-import {signInSuccess} from "./actions/auth/signInSuccess";
 import PageHeader from './components/PageHeader';
 import MenuModal from './components/Modals/MenuModal';
 
@@ -46,8 +44,6 @@ const mapStateToProps = state => {
 };
 
 const mapStateToDispatch = {
-  getUserInfo,
-  signInSuccess
 };
 
 export default withRouter(connect(mapStateToProps, mapStateToDispatch)(App));

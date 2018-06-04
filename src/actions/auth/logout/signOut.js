@@ -6,7 +6,9 @@ import {LOGOUT} from "../../../constants/authConst";
 export const signOut = () => {
     return dispatch => {
         return fire.auth().signOut()
-            .then(() => {
+            .then((response) => {
+              console.log("response log out", response);
+
                 dispatch({
                     type: LOGOUT
                 });

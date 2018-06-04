@@ -12,7 +12,7 @@ export const getUserStatus = () => {
     return fire.auth().onAuthStateChanged(user => {
       if (user) {
         dispatch(getUserInfo(user.uid)).then((response) => {
-          dispatch(signInSuccess(response));
+          // dispatch(signInSuccess(response));
           dispatch(reqStatus());
         });
       } else {

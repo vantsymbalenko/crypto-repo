@@ -26,17 +26,20 @@ export const signIn = async (email, password, code) => {
         if (response.user && response.user.emailVerified) {
           console.log("eemail was verified");
           const uid = response.user.uid;
-          dispatch(getUserInfo(uid)).
-          then(userData => {
+          // dispatch(getUserInfo(uid))
+          dispatch(getUserInfo(uid))
+            .then(userData => {
             console.log("get user data ", userData);
+            console.log("state", getState());
             /*** if there is secret in redux store or in firestore
              * then make code verification
              * ***/
             secret = userData.secret || secret;
             console.log("secret", secret);
             if (response && secret) {
+              console.log("before verify", getState());
               verifyGoogleCode(secret, code).then(response => {
-                console.log("verify", response);
+                console.log("verify", response, getState());
                 if (response.status === 200) {
                   setSecretCode({secret: secret})
                     .then(() => {
@@ -44,10 +47,12 @@ export const signIn = async (email, password, code) => {
                       dispatch(enableButtons());
                     });
                 } else {
+                  console.log("enables buttons", response.status, getState());
                   dispatch(enableButtons());
                 }
               });
             } else {
+              console.log("show google setup");
               dispatch(showGoogleAuthenticationSetup());
             }
           });

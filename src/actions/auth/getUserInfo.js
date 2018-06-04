@@ -4,7 +4,7 @@ import { toggleErrorModal } from "../modals/errorModal";
 
 export const getUserInfo = (uid) => {
     return dispatch =>
-        firebaseFirestore
+      firebaseFirestore
         .collection(FIREBASE_COLLECTION_USER)
         .doc(uid)
         .get()
