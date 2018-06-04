@@ -10,8 +10,9 @@ import { signInSuccess } from "./signInSuccess";
 
 export const saveChanges = (data, file) => {
   return (dispatch, getState) => {
-    const secret = getState().authData.usersData.secret,
-      user = fire.auth().currentUser;
+    const state = getState(),
+        secret = state.authData.usersData.secret,
+        user = fire.auth().currentUser;
 
     dispatch(disableButtons());
 
@@ -21,9 +22,10 @@ export const saveChanges = (data, file) => {
          * else show that google code is wrong***/
 
         if (response.status === 200) {
-          /*** if user change photo then first upload photo
-           * to storage and then update info including new path to photo ***/
-          if(data.email){
+         /***
+          * if user change email then change email and send verification email to new address
+          * ***/
+          if(data.email !== state.authData.usersData.email){
               user.updateEmail(data.email)
                 .then(() => {
                     console.log("email was successfully update");
@@ -45,6 +47,8 @@ export const saveChanges = (data, file) => {
                     dispatch(toggleErrorModal(error));
                 })
           }
+            /*** if user change photo then first upload photo
+             * to storage and then update info including new path to photo ***/
           if (file) {
             uploadFile(file)
               .then(snapshot => {

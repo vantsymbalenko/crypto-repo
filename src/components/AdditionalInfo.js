@@ -10,7 +10,7 @@ export const AdditionalInfo = styled.div`
   letter-spacing: normal;
   color: #66688f;
   margin: 20px auto;
-  text-align: center;
+  text-align: ${props => props.textAlign || "center"};
   ${props =>
   props.toBottom &&
   css`

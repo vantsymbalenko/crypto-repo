@@ -11,10 +11,11 @@ import Home from "./containers/Home/Home";
 import Login from "./containers/Login/Login";
 import SignUp from "./containers/SignUp/SignUp";
 import { NotFound } from "./components/NotFound/NotFound";
-import VerifyEmail from "./components/VerifyEmail";
 import ErrorModal from './components/Modals/ErrorModal';
 import { AUTH_USER } from "./constants/authConst";
 import AccountSettings from './containers/Account/AccountSettings';
+import AccountChanges from './containers/AccountChanges';
+import ReferFriend from './containers/Account/ReferFriend';
 
 class App extends Component {
    render() {
@@ -25,9 +26,10 @@ class App extends Component {
       <Switch key={2}>
         <Route exact path={`/login`} component={Login} />
         <Route exact path={`/sign-up`} component={SignUp} />
-        <Route exact path={`/verify-email`} component={VerifyEmail}/>
+        <Route exact path={`/account-changes`} component={AccountChanges}/>
         <PrivateRoute exact path={`/`} component={Home} />
         <PrivateRoute exact path={`/account-settings`} component={AccountSettings}/>
+        <PrivateRoute exact path={`/refer-a-friend`} component={ReferFriend}/>
         <Route component={NotFound} />
       </Switch>
     ];

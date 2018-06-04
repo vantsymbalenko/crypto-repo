@@ -1,11 +1,11 @@
 import React from "react";
 import styled from "styled-components";
 import {withRouter} from 'react-router-dom';
-import SlideModalToLeft from "./Modals/SlideModalToLeft";
-import { TextNode } from "./Modals/TextNode";
-import { AdditionalTextNode } from "./Modals/AdditionalTextNode";
-import {getUrlParams} from "../helpers/getUrlParams";
-import {verifyEmail} from "../actions/verifyEmail";
+import SlideModalToLeft from "../../components/Modals/SlideModalToLeft";
+import { TextNode } from "../../components/Modals/TextNode";
+import { AdditionalTextNode } from "../../components/Modals/AdditionalTextNode";
+import {getUrlParams} from "../../helpers/getUrlParams";
+import {verifyEmail} from "../../actions/verifyEmail";
 
 class VerifyEmail extends React.Component{
     constructor(props){

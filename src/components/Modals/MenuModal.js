@@ -45,7 +45,7 @@ class MenuModal extends React.Component {
           <AccountSettings>
             <ProfileBlock to={`/account-settings`}>
               <ProfileFoto>
-                <ImgProfile src={profileFotoImgSrc} />
+                <ImgProfile src={this.props.usersData.imgSrc || profileFotoImgSrc} />
               </ProfileFoto>
               <UserTitle>
                 <UserName>{`${firstName} ${lastName}`}</UserName>

@@ -2,12 +2,13 @@ import React from "react";
 import styled from "styled-components";
 import { connect } from "react-redux";
 import PropTypes from "prop-types";
-import { Link } from "react-router-dom";
+import { Link, withRouter } from "react-router-dom";
 import {
   emailRule,
   firstNameRule,
   lastNameRule,
-  passwordRule
+  passwordRule,
+  mobileRule
 } from "../../validationRules/rules";
 import Validation from "react-validation-utils";
 import { toggleSignUpSuccessModal } from "../../actions/modals/signUpModals";
@@ -21,7 +22,8 @@ import { CountriesSelect } from "../../components/CountriesSelect/CountriesSelec
 import { registerNewUser } from "../../actions/registerNewUser";
 import { getFlagUrl } from "../../helpers/getFlagUrl";
 import getBorderColor from "../../helpers/getBorderColor";
-import {PRESIGN_IN, REQ} from "../../constants/authConst";
+import {REQ} from "../../constants/authConst";
+import {getUrlParams } from '../../helpers/getUrlParams';
 
 const Validator = new Validation({
   email: {
@@ -45,6 +47,10 @@ const Validator = new Validation({
   lastName: {
     rule: lastNameRule,
     message: "Name is incorrect"
+  },
+  mobile: {
+    rule: mobileRule,
+    message: "Phone number must contain only digits without letters and special characters"
   }
 });
 
@@ -62,8 +68,10 @@ class FormSignUp extends React.Component {
       telegramID: "",
       password: "",
       confirmPassword: "",
-      isShowModal: false
+      isShowModal: false,
+      ...getUrlParams(this.props.location)
     });
+
     this.getBorderColor = getBorderColor.bind(this);
   }
 
@@ -99,7 +107,17 @@ class FormSignUp extends React.Component {
       return this.setState(Validator.validate());
     }
     // this.props.toggleSignUpSuccessModal();
-    this.props.registerNewUser(this.state);
+    this.props.registerNewUser({
+        email: this.state.email,
+        password: this.state.password,
+        refCode: this.state.refCode,
+        lastName: this.state.lastName,
+        firstName: this.state.firstName,
+        mobile: this.state.mobile,
+        mobileCode: this.state.mobileCode,
+        countryCode: this.state.countryCode,
+        telegramID: this.state.telegramID
+    });
   };
 
   toggleModal = () => {
@@ -249,7 +267,7 @@ FormSignUp.propTypes = {
 };
 
 const mapStateToProps = state => ({
-  authStatus: state.authData.reqStatus
+  authStatus: state.appData.reqStatus
 });
 
 const mapStateToDispatch = {
@@ -257,7 +275,7 @@ const mapStateToDispatch = {
   toggleSignUpSuccessModal
 };
 
-export default connect(mapStateToProps, mapStateToDispatch)(FormSignUp);
+export default withRouter(connect(mapStateToProps, mapStateToDispatch)(FormSignUp));
 
 const Form = styled.form`
   padding: 17px;

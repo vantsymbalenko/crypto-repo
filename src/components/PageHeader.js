@@ -7,6 +7,8 @@ import {toggleMenu} from "../actions/modals/toggleMenu";
 
 class PageHeader extends React.Component{
     render(){
+        console.log("this.props.location.page header", this.props);
+        const page = this.props.location.pathname.substr(1).split("-").join(" ") || "Smart Wallet";
         return(
             <PageHeaderBody>
                 <MenuIconButton onClick={this.props.toggleMenu}>
@@ -14,7 +16,7 @@ class PageHeader extends React.Component{
                    <Bar/>
                    <Bar/>
                 </MenuIconButton>
-                <PageTitle>Smart Wallet</PageTitle>
+                <PageTitle>{page}</PageTitle>
             </PageHeaderBody>
         );
     }

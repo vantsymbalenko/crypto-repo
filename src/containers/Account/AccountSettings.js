@@ -8,14 +8,16 @@ import Validation from "react-validation-utils";
 import {
   emailRule,
   firstNameRule,
-  lastNameRule
+  lastNameRule,
+  mobileRule
 } from "../../validationRules/rules";
 import { Input } from "../../components/Input";
 import { getFlagUrl } from "../../helpers/getFlagUrl";
 import { EXTERNAL_LINK_HELP_LOGIN_PAGE } from "../../constants/appConst";
 import { Link } from "react-router-dom";
 import { fire } from "../../FirebaseConfig/Fire";
-import {saveChanges} from "../../actions/auth/saveChangesInProfile";
+import { saveChanges } from "../../actions/auth/saveChangesInProfile";
+import { REQ } from "../../constants/authConst";
 
 const Validator = new Validation({
   email: {
@@ -29,6 +31,11 @@ const Validator = new Validation({
   lastName: {
     rule: lastNameRule,
     message: "Name is incorrect"
+  },
+  mobile: {
+    rule: mobileRule,
+    message:
+      "Phone number can contain only digits without letters and special characters"
   }
 });
 
@@ -47,7 +54,7 @@ class AccountSettings extends React.Component {
       file: "",
       isShowModal: false,
       googleCode: "",
-        src: this.props.usersData.imgSrc
+      src: this.props.usersData.imgSrc || profileFotoImgSrc
     });
     this.getBorderColor = getBorderColor.bind(this);
   }
@@ -64,18 +71,16 @@ class AccountSettings extends React.Component {
   };
 
   previewImage = () => {
-      const oFReader = new FileReader();
-      if(this.file.files && this.file.files[0]){
-            console.log("worl");
-          oFReader.onload = (e) => {
-              this.setState({
-                  src: e.target.result
-              });
-          };
-          oFReader.readAsDataURL(this.file.files[0]);
-      }
-
-
+    const oFReader = new FileReader();
+    if (this.file.files && this.file.files[0]) {
+      console.log("worl");
+      oFReader.onload = e => {
+        this.setState({
+          src: e.target.result
+        });
+      };
+      oFReader.readAsDataURL(this.file.files[0]);
+    }
   };
 
   toggleModal = () => {
@@ -84,9 +89,24 @@ class AccountSettings extends React.Component {
     });
   };
 
-  submit = (e) => {
+  submit = e => {
     e.preventDefault();
-    this.props.saveChanges(this.state, this.file.files[0]);
+    if (!Validator.isFormValid(this.state)) {
+      // validate all fields in the state to show all error messages
+      return this.setState(Validator.validate());
+    }
+    const sendData = {
+      refCode: this.state.refCode,
+      lastName: this.state.lastName,
+      email: fire.auth().currentUser.email,
+      firstName: this.state.firstName,
+      mobile: this.state.mobile,
+      mobileCode: this.state.mobileCode,
+      countryCode: this.state.countryCode,
+      telegramID: this.state.telegramID,
+      googleCode: this.state.googleCode
+    };
+    this.props.saveChanges(sendData, this.file.files[0]);
   };
 
   render() {
@@ -97,7 +117,7 @@ class AccountSettings extends React.Component {
           <LabelInputFile>
             <InputFile
               type={`file`}
-              innerRef={node => this.file=node}
+              innerRef={node => (this.file = node)}
               onChange={this.previewImage}
             />
             Choose from gallery
@@ -134,9 +154,10 @@ class AccountSettings extends React.Component {
         <TwoInputRows>
           <Input
             value={this.state.mobile}
-            type={"number"}
+            type={"text"}
             name={`mobile`}
             labelText={"Mobile Number"}
+            borderColor={this.getBorderColor(`mobile`)}
             marginRight={`30px`}
             placeholder={""}
             onChange={this.onChange}
@@ -166,6 +187,7 @@ class AccountSettings extends React.Component {
             name={`googleCode`}
             placeholder={`****`}
             labelMargin={`0`}
+            type={"password"}
             rowReverse
           >
             <HelpExternalLink href={`${EXTERNAL_LINK_HELP_LOGIN_PAGE}`}>
@@ -180,7 +202,11 @@ class AccountSettings extends React.Component {
             Want to delete your account? Please contact
             support@dripfoundation.io
           </AdditionalText>
-          <Button type={`submit`} onClick={this.submit}>
+          <Button
+            type={`submit`}
+            onClick={this.submit}
+            disabled={this.props.reqStatus === REQ}
+          >
             Save settings
           </Button>
         </BottomContent>
@@ -195,7 +221,8 @@ AccountSettings.propTypes = {
 
 const mapStateToProps = state => {
   return {
-    usersData: state.authData.usersData
+    usersData: state.authData.usersData,
+    reqStatus: state.appData.reqStatus
   };
 };
 
