@@ -63,7 +63,15 @@ export const registerNewUser = data => {
 
                   dispatch(toggleSignUpSuccessModal());
                   dispatch(enableButtons());
-                });
+                })
+                    .catch((err) => {
+                        const error = {
+                            errorCode: err.code,
+                            errorMessage: err.message
+                        };
+                        dispatch(toggleErrorModal(error));
+                        dispatch(enableButtons());
+                    })
               })
               .catch(err => {
                 const error = {
@@ -75,6 +83,14 @@ export const registerNewUser = data => {
               });
 
             /*** send email verification ***/
+          })
+          .catch(err => {
+            const error = {
+              errorCode: err.code,
+              errorMessage: err.message
+            };
+            dispatch(toggleErrorModal(error));
+            dispatch(enableButtons());
           });
       })
       .catch(err => {
