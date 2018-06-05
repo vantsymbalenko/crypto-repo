@@ -43,17 +43,18 @@ export const registerNewUser = data => {
                   console.log("another user", response.data());
 
                   const {referedUsers} = response.data();
-
-                  referedUsers.push({
-                      userName: rest.firstName + " " + rest.lastName,
-                      userUid: rest.refCode
-                  });
-                    firebaseFirestore
-                        .collection(FIREBASE_COLLECTION_USER)
-                        .doc(rest.refCode)
-                        .update({
-                            referedUsers: referedUsers
+                    if(referedUsers){
+                        referedUsers.push({
+                            userName: rest.firstName + " " + rest.lastName,
+                            userUid: rest.refCode
                         });
+                        firebaseFirestore
+                            .collection(FIREBASE_COLLECTION_USER)
+                            .doc(rest.refCode)
+                            .update({
+                                referedUsers: referedUsers
+                            });
+                    }
                 })
                   .catch((err) => {
                       const error = {
