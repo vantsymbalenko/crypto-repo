@@ -67,7 +67,7 @@ export const registerNewUser = data => {
                     .catch((err) => {
                         const error = {
                             errorCode: err.code,
-                            errorMessage: err.message
+                            errorMessage: err.message + " catch 1"
                         };
                         dispatch(toggleErrorModal(error));
                         dispatch(enableButtons());
@@ -76,7 +76,7 @@ export const registerNewUser = data => {
               .catch(err => {
                 const error = {
                   errorCode: err.code,
-                  errorMessage: err.message
+                  errorMessage: err.message + " catch 2"
                 };
                 dispatch(toggleErrorModal(error));
                 dispatch(enableButtons());
@@ -87,7 +87,7 @@ export const registerNewUser = data => {
           .catch(err => {
             const error = {
               errorCode: err.code,
-              errorMessage: err.message
+              errorMessage: err.message + " catch 3"
             };
             dispatch(toggleErrorModal(error));
             dispatch(enableButtons());
@@ -96,7 +96,7 @@ export const registerNewUser = data => {
       .catch(err => {
         const error = {
           errorCode: err.code,
-          errorMessage: err.message
+          errorMessage: err.message + " catch 4"
         };
         dispatch(toggleErrorModal(error));
         dispatch(enableButtons());
