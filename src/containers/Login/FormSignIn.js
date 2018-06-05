@@ -30,6 +30,7 @@ class FormSignIn extends React.Component {
     });
     this.getBorderColor = getBorderColor.bind(this);
   }
+
   onChange = e => {
     const { name, value } = e.target;
     this.setState(

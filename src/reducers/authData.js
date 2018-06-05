@@ -54,8 +54,7 @@ export const authData = (state = initialState, action) => {
     }
     case LOGOUT: {
       return {
-        ...initialState,
-        reqStatus: state.reqStatus
+        ...initialState
       };
     }
     default:

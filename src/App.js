@@ -19,7 +19,6 @@ import ReferFriend from './containers/Account/ReferFriend';
 
 class App extends Component {
    render() {
-     console.log("test");
     return [
       <ErrorModal key={1} />,
       this.props.authStatus === AUTH_USER ? <PageHeader key={3}/> : null,
