@@ -14,7 +14,7 @@ export const REQ = "REQ";
 export const REQUEST_END = "REQUEST_END";
 export const SAVE_CHANGES = "SAVE_CHANGES";
 export const IMAGE_FOLDER = "/profilesFoto/";
-export const VERIFY_GOOGLE_CODE_ADDRESS = "http://dev.dripfoundation.io/";
+export const VERIFY_GOOGLE_CODE_ADDRESS = "http://dev.dripfoundation.io/api";
 
 export const ENABLE_GOOGLE_AUTH = "ENABLE_GOOGLE_AUTH";
 export const LOGOUT = "LOGOUT";
