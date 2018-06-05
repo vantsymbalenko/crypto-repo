@@ -34,64 +34,66 @@ export const registerNewUser = data => {
             referedUsers: []
           })
           .then(() => {
-            firebaseFirestore
-              .collection(FIREBASE_COLLECTION_USER)
-              .doc(rest.refCode)
-              .get()
-              .then(response => {
-                console.log("another user", response.data());
-                if (response.data() && response.data().referedUsers) {
-                  const { referedUsers } = response.data();
-                  referedUsers.push({
-                    userName: rest.firstName + " " + rest.lastName,
-                    userUid: rest.refCode
-                  });
+              if(rest.refCode) {
                   firebaseFirestore
-                    .collection(FIREBASE_COLLECTION_USER)
-                    .doc(rest.refCode)
-                    .update({
-                      referedUsers: referedUsers
-                    });
-                }
-                dispatch(enableButtons());
-              })
-              .then(() => {
-                sendEmailVerification().then(() => {
-                  /*** toogle email sign up modal with confirm than user was successfully registered
-                   * and on his email was send verification email
-                   * ***/
+                      .collection(FIREBASE_COLLECTION_USER)
+                      .doc(rest.refCode)
+                      .get()
+                      .then(response => {
+                          console.log("another user", response.data());
+                          if (response.data() && response.data().referedUsers) {
+                              const {referedUsers} = response.data();
+                              referedUsers.push({
+                                  userName: rest.firstName + " " + rest.lastName,
+                                  userUid: rest.refCode
+                              });
+                              firebaseFirestore
+                                  .collection(FIREBASE_COLLECTION_USER)
+                                  .doc(rest.refCode)
+                                  .update({
+                                      referedUsers: referedUsers
+                                  });
+                          }
+                      })
+                      .catch(err => {
+                          const error = {
+                              errorCode: err.code,
+                              errorMessage: err.message
+                          };
+                          dispatch(toggleErrorModal(error));
+                          dispatch(enableButtons());
+                      })
 
-                  dispatch(toggleSignUpSuccessModal());
-                  dispatch(enableButtons());
-                })
-                    .catch((err) => {
-                        const error = {
-                            errorCode: err.code,
-                            errorMessage: err.message + " catch 1"
-                        };
-                        dispatch(toggleErrorModal(error));
-                        dispatch(enableButtons());
-                    })
-              })
-              .catch(err => {
+                }
+          })
+          .then(() => {
+            sendEmailVerification().
+            then(() => {
+              /*** toogle email sign up modal with confirm than user was successfully registered
+               * and on his email was send verification email
+               * ***/
+
+              dispatch(toggleSignUpSuccessModal());
+              dispatch(enableButtons());
+            })
+            .catch((err) => {
                 const error = {
-                  errorCode: err.code,
-                  errorMessage: err.message + " catch 2"
+                    errorCode: err.code,
+                    errorMessage: err.message + " catch 1"
                 };
                 dispatch(toggleErrorModal(error));
                 dispatch(enableButtons());
-              });
-
-            /*** send email verification ***/
+            })
           })
           .catch(err => {
             const error = {
               errorCode: err.code,
-              errorMessage: err.message + " catch 3"
+              errorMessage: err.message + " catch 2"
             };
             dispatch(toggleErrorModal(error));
             dispatch(enableButtons());
           });
+            /*** send email verification ***/
       })
       .catch(err => {
         const error = {
