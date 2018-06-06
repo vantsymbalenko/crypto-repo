@@ -1,18 +1,17 @@
-import { REQUEST_END } from "../../constants/authConst";
-import {fire, firebaseFirestore} from "../../FirebaseConfig/Fire";
-import { getUserInfo } from "./getUserInfo";
+import {REQ, REQUEST_END} from "../../constants/authConst";
+import { fire, firebaseFirestore } from "../../FirebaseConfig/Fire";
 import { signInSuccess } from "./signInSuccess";
-import {FIREBASE_COLLECTION_USER} from "../../constants/appConst";
-import {toggleErrorModal} from "../modals/errorModal";
+import { FIREBASE_COLLECTION_USER } from "../../constants/appConst";
 
 export const reqStatus = () => ({
   type: REQUEST_END
 });
 
 export const getUserStatus = () => {
-  return dispatch => {
+  return async (dispatch, getState) => {
     fire.auth().onAuthStateChanged(async user => {
-      if (user) {
+      const req = getState().appData.reqStatus;
+      if (user && req!==REQ) {
         try{
             const userInfoFromFireStore = await firebaseFirestore.collection(FIREBASE_COLLECTION_USER).doc(user.uid).get(),
                   userDataFromFireStore = await userInfoFromFireStore.data();
@@ -22,11 +21,6 @@ export const getUserStatus = () => {
           console.log("Error ", err.message);
           dispatch(reqStatus());
         }
-
-        // dispatch(getUserInfo(user.uid)).then((response) => {
-        //   dispatch(signInSuccess(response));
-        //   dispatch(reqStatus());
-        // });
       } else {
         dispatch(reqStatus());
       }

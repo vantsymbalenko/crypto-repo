@@ -16,8 +16,12 @@ import { AUTH_USER } from "./constants/authConst";
 import AccountSettings from './containers/Account/AccountSettings';
 import AccountChanges from './containers/AccountChanges';
 import ReferFriend from './containers/Account/ReferFriend';
+import {getUserStatus} from "./actions/auth/getUserStatus";
 
 class App extends Component {
+    componentDidMount(){
+        this.props.getUserStatus();
+    }
    render() {
     return [
       <ErrorModal key={1} />,
@@ -46,6 +50,7 @@ const mapStateToProps = state => {
 };
 
 const mapStateToDispatch = {
+    getUserStatus
 };
 
 export default withRouter(connect(mapStateToProps, mapStateToDispatch)(App));

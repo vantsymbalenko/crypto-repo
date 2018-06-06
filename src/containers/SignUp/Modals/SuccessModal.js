@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import {Link} from 'react-router-dom';
 import SlideModalToLeft from "../../../components/Modals/SlideModalToLeft";
 import {TextNode} from "../../../components/Modals/TextNode";
 import {AdditionalTextNode} from "../../../components/Modals/AdditionalTextNode";
@@ -25,9 +26,11 @@ export const SuccessModal = (props) => {
         minutes, please check your spam folder. If you still<br/>
         cant see it, resend the email
       </AdditionalTextNode>
-      <Button>
-        Log in now
-      </Button>
+      <Link to={`/login`}>
+        <Button>
+          Log in now
+        </Button>
+      </Link>
     </SlideModalToLeft>
   );
 };

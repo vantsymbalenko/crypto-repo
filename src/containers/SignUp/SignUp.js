@@ -4,9 +4,15 @@ import styled from "styled-components";
 import { Header } from "../../components/Header";
 import FormSignUp from "./FormSignUp";
 import Modals from "./Modals";
-import {getModalStatus} from "../../helpers/getModalStatus";
+import { getModalStatus } from "../../helpers/getModalStatus";
+import { toggleSignUpSuccessModal } from "../../actions/modals/signUpModals";
 
 class SignUp extends Component {
+  componentWillUnmount() {
+    if (this.props.signUpModalsStatus) {
+      this.props.toggleSignUpSuccessModal();
+    }
+  }
   render() {
     const isHideContent = getModalStatus(this.props.signUpModalsStatus);
     return (
@@ -30,7 +36,9 @@ const mapStateToProps = state => {
   };
 };
 
-const mapStateToDispatch = {};
+const mapStateToDispatch = {
+  toggleSignUpSuccessModal
+};
 
 export default connect(mapStateToProps, mapStateToDispatch)(SignUp);
 
