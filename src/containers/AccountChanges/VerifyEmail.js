@@ -36,7 +36,7 @@ class VerifyEmail extends React.Component{
     }
   render() {
     return (
-      <SlideModalToLeft show={this.state.show}>
+      <SlideModalToLeft show={this.state.show} backToLogin={true}>
           {this.state.message && this.state.show ? (
               <TextNode>{this.state.message}</TextNode>
           ) : [
