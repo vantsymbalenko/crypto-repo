@@ -9,7 +9,7 @@ export default class SlideModalToLeft extends React.Component {
     return (
       <ModalBody show={this.props.show} zIndex={this.props.zIndex}>
         {this.props.backToLogin ? (
-          <StyledLinkBackToLogin>
+          <StyledLinkBackToLogin to={`/login`}>
             <svg
               width="22"
               height="17"
