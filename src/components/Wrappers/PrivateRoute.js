@@ -7,6 +7,9 @@ import {getUserStatus} from "../../actions/auth/getUserStatus";
 import loading from '../../images/loading.gif';
 
 class PrivateRoute  extends  React.Component{
+    componentDidMount(){
+        this.props.getUserStatus();
+    }
   render(){
     const { component: Component, authStatus,reqStatus, ...rest } = this.props;
 

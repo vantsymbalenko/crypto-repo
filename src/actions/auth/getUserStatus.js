@@ -10,6 +10,7 @@ export const reqStatus = () => ({
 export const getUserStatus = () => {
   return async (dispatch, getState) => {
     fire.auth().onAuthStateChanged(async user => {
+      console.log("user", user);
       const req = getState().appData.reqStatus;
       if (user && req!==REQ) {
         try{

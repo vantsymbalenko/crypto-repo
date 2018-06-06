@@ -19,9 +19,7 @@ import ReferFriend from './containers/Account/ReferFriend';
 import {getUserStatus} from "./actions/auth/getUserStatus";
 
 class App extends Component {
-    componentDidMount(){
-        this.props.getUserStatus();
-    }
+
    render() {
     return [
       <ErrorModal key={1} />,
