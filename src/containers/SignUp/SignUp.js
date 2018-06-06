@@ -1,14 +1,22 @@
 import React, { Component } from "react";
+import PropTypes from "prop-types";
 import { connect } from "react-redux";
 import styled from "styled-components";
-import { Header } from "../../components/Header";
-import FormSignUp from "./FormSignUp";
+
+/*** containers ***/
 import Modals from "./Modals";
-import { getModalStatus } from "../../helpers/getModalStatus";
+import FormSignUp from "./FormSignUp";
+import { Header } from "../../components/Header";
+
+/*** actions ***/
 import { toggleSignUpSuccessModal } from "../../actions/modals/signUpModals";
+
+/*** else ***/
+import { getModalStatus } from "../../helpers/getModalStatus";
 
 class SignUp extends Component {
   componentWillUnmount() {
+    /*** need firstly for hide left menu when user clicked logout ***/
     if (this.props.signUpModalsStatus) {
       this.props.toggleSignUpSuccessModal();
     }
@@ -24,11 +32,10 @@ class SignUp extends Component {
     );
   }
 }
-const Wrapper = styled.div`
-  position: relative;
-  width: 100vw;
-  height: auto;
-`;
+
+SignUp.propTypes = {
+  toggleSignUpSuccessModal: PropTypes.func
+};
 
 const mapStateToProps = state => {
   return {
@@ -42,29 +49,8 @@ const mapStateToDispatch = {
 
 export default connect(mapStateToProps, mapStateToDispatch)(SignUp);
 
-// const Button = styled.button`
-//   display: block;
-//   width: 100%;
-//   max-width: 343px;
-//   height: 45px;
-//   border: none;
-//   border-radius: 4px;
-//   text-transform: uppercase;
-//   font-family: Helvetica, sans-serif;
-//   font-size: 12px;
-//   font-weight: 300;
-//   font-style: normal;
-//   font-stretch: normal;
-//   line-height: 1;
-//   letter-spacing: 0.8px;
-//   color: #ffffff;
-//   background: #1f1f2f;
-//   position: absolute;
-//   left: 0;
-//   right: 0;
-//   bottom: 45px;
-//   margin: auto;
-//   &:hover{
-//     cursor:pointer;
-//   }
-// `;
+const Wrapper = styled.div`
+  position: relative;
+  width: 100vw;
+  height: auto;
+`;

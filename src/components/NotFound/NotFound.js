@@ -1,5 +1,5 @@
 import React from "react";
 
 export const NotFound = props => {
-  return <div>404 Not Found</div>;
+  return <div style={{color:"white",fontSize:"24px"}}>404 Not Found</div>;
 };

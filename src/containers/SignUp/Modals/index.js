@@ -2,8 +2,14 @@ import React from "react";
 import styled from "styled-components";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
+
+/*** containers ***/
 import { SuccessModal } from "./SuccessModal";
+
+/*** actions ***/
 import { toggleSignUpSuccessModal } from "../../../actions/modals/signUpModals";
+
+/*** else ***/
 import { getModalStatus } from "../../../helpers/getModalStatus";
 
 class Modals extends React.Component {
@@ -11,10 +17,10 @@ class Modals extends React.Component {
     const isShowModals = getModalStatus(this.props.signUpModalsStatus);
     return (
       <ModalsBody isShowModals={isShowModals}>
-          <SuccessModal
-            isShowModal={this.props.signUpModalsStatus.isShowSignUpSuccessModal}
-            toggleToLeftModal={this.props.toggleSignUpSuccessModal}
-          />
+        <SuccessModal
+          isShowModal={this.props.signUpModalsStatus.isShowSignUpSuccessModal}
+          toggleToLeftModal={this.props.toggleSignUpSuccessModal}
+        />
       </ModalsBody>
     );
   }

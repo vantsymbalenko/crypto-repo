@@ -1,74 +1,77 @@
-import React from 'react';
-import styled from 'styled-components';
-import {connect} from 'react-redux';
-import PropTypes from 'prop-types';
-import {Input} from '../../components/Input';
-import {AdditionalInfo} from "../../components/AdditionalInfo";
-import {fire} from "../../FirebaseConfig/Fire";
-import {HOST} from "../../constants/appConst";
-import {CopyToClipboard} from 'react-copy-to-clipboard';
+import React from "react";
+import styled from "styled-components";
+import { connect } from "react-redux";
+import PropTypes from "prop-types";
+import { CopyToClipboard } from "react-copy-to-clipboard";
 
-class ReferFriend extends React.Component{
-    constructor(props){
-        super(props);
-        this.state = {
-            refLink: HOST + "/sign-up?refCode=" + fire.auth().currentUser.uid,
-            copied: false
-        };
-    }
-    changeField = (e) => {
-        e.preventDefault();
+/*** components ***/
+import { Input } from "../../components/Input";
+import { AdditionalInfo } from "../../components/AdditionalInfo";
+
+/*** else ***/
+import { fire } from "../../FirebaseConfig/Fire";
+import { HOST } from "../../constants/appConst";
+
+class ReferFriend extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      refLink: HOST + "/sign-up?refCode=" + fire.auth().currentUser.uid,
+      copied: false
     };
+  }
+  changeField = e => {
+    e.preventDefault();
+  };
 
-
-    render(){
-        return(
-            <Body>
-                <Input
-                    value={this.state.refLink}
-                    onChange={this.changeField}
-                    type={`text`}
-                    labelMargin={`24px 0 -3px 0`}
-                    labelText={`this is your referral code`}
-                    borderColor={`none`}
-                />
-                <ActionsButtons>
-                    <CopyToClipboard text={this.state.refLink}
-                     onCopy={() => this.setState({copied: true})}>
-                        <ActionButton>
-                            Copy to clipboard
-                        </ActionButton>
-                    </CopyToClipboard>
-                    <ActionButton>
-                        Share on Twitter
-                    </ActionButton>
-                    <ActionButton>
-                        Share on Facebook
-                    </ActionButton>
-                </ActionsButtons>
-                <HeaderText>how it works</HeaderText>
-                <MainText>
-                    Share your referral code with anyone you like!<br/>
-                    For every person that uses your link to sign up,<br/>
-                    DRIP will give you each 500 DRIPX for free!*
-                </MainText>
-                <AdditionalInfo textAlign={`left`}>
-                    DRIPX is the DRIP FOUNDATION’s utility coin. It can be used to pay<br/>
-                    transaction fees here on DRIP and be traded on participating exchanges.<br/>
-                    For security reasons, customers may acquire a maximum of USD $1,000<br/>
-                    worth of PPX per day through combination of buy-ins and referrals. DRIPX<br/>
-                    referral rewards are given out only after the referred friend becomes <br/>
-                    “active.”  By making referrals, you agree to all <ExternalLink>terms of service</ExternalLink>
-                </AdditionalInfo>
-            </Body>
-        );
-    }
+  render() {
+    return (
+      <Body>
+        <Input
+          value={this.state.refLink}
+          onChange={this.changeField}
+          type={`text`}
+          labelMargin={`24px 0 -3px 0`}
+          labelText={`this is your referral code`}
+          borderColor={`none`}
+        />
+        <ActionsButtons>
+          <CopyToClipboard
+            text={this.state.refLink}
+            onCopy={() => this.setState({ copied: true })}
+          >
+            <ActionButton>Copy to clipboard</ActionButton>
+          </CopyToClipboard>
+          <ActionButton>Share on Twitter</ActionButton>
+          <ActionButton>Share on Facebook</ActionButton>
+        </ActionsButtons>
+        <HeaderText>how it works</HeaderText>
+        <MainText>
+          Share your referral code with anyone you like!<br />
+          For every person that uses your link to sign up,<br />
+          DRIP will give you each 500 DRIPX for free!*
+        </MainText>
+        <AdditionalInfo textAlign={`left`}>
+          DRIPX is the DRIP FOUNDATION’s utility coin. It can be used to pay<br />
+          transaction fees here on DRIP and be traded on participating
+          exchanges.<br />
+          For security reasons, customers may acquire a maximum of USD $1,000<br />
+          worth of PPX per day through combination of buy-ins and referrals.
+          DRIPX<br />
+          referral rewards are given out only after the referred friend becomes{" "}
+          <br />
+          “active.” By making referrals, you agree to all{" "}
+          <ExternalLink>terms of service</ExternalLink>
+        </AdditionalInfo>
+      </Body>
+    );
+  }
 }
 
 ReferFriend.propTypes = {};
 
-const mapStateToProps = (state) => {
-    return{};
+const mapStateToProps = () => {
+  return {};
 };
 
 const mapStateToDispatch = {};
@@ -86,7 +89,7 @@ const ActionsButtons = styled.div`
 
 const ActionButton = styled.div`
   height: 14px;
-  font-family: Helvetica,sans-serif;
+  font-family: Helvetica, sans-serif;
   font-size: 10px;
   font-weight: 300;
   font-style: normal;
@@ -109,11 +112,11 @@ const HeaderText = styled.p`
   letter-spacing: 0.6px;
   color: #66688f;
   text-transform: uppercase;
-  margin-top:45px;
+  margin-top: 45px;
 `;
 
 const MainText = styled.p`
-margin-top:11px;
+  margin-top: 11px;
   font-family: Helvetica, sans-serif;
   font-size: 16px;
   font-weight: 300;
@@ -125,6 +128,6 @@ margin-top:11px;
 `;
 
 const ExternalLink = styled.a`
-  text-decoration:none;
+  text-decoration: none;
   color: #229ae8;
 `;

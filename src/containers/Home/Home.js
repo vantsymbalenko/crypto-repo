@@ -1,14 +1,13 @@
 import React, { Component } from "react";
-import styled from 'styled-components';
-import PropTypes from 'prop-types';
-import {fire} from "../../FirebaseConfig/Fire";
+import styled from "styled-components";
+import PropTypes from "prop-types";
 
 export default class Home extends Component {
   render() {
-    return(
-        <HomeBody>
-            <div style={{color: "#fff", fontSize: "48px"}}>Home</div>
-        </HomeBody>
+    return (
+      <HomeBody>
+        <div style={{ color: "#fff", fontSize: "48px" }}>Home</div>
+      </HomeBody>
     );
   }
 }

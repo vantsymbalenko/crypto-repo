@@ -1,12 +1,18 @@
 import React, { Component } from "react";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
-import styled, {css} from "styled-components";
+import styled, { css } from "styled-components";
 import { Redirect } from "react-router-dom";
-import { Header } from "../../components/Header";
+
+/*** containers ***/
 import FormSignIn from "./FormSignIn";
+import Modals from "./Modals";
+
+/*** components ***/
+import { Header } from "../../components/Header";
+
+/*** else ***/
 import { AUTH_USER } from "../../constants/authConst";
-import Modals from './Modals';
 import { getModalStatus } from "../../helpers/getModalStatus";
 
 class Login extends Component {
@@ -17,11 +23,10 @@ class Login extends Component {
     }
 
     return [
-      <Modals key={1}/>,
+      <Modals key={1} />,
       <LoginBody key={2} hide={isHide}>
         <Header toggle={true} headerText={"Log In"} />
-        <FormSignIn toggleToLeftModal={this.toggleToLeftModal}/>
-
+        <FormSignIn toggleToLeftModal={this.toggleToLeftModal} />
       </LoginBody>
     ];
   }
@@ -34,7 +39,7 @@ Login.propTypes = {
 const mapStateToProps = state => {
   return {
     authStatus: state.authData.authStatus,
-    loginModal: state.modals.loginModal,
+    loginModal: state.modals.loginModal
   };
 };
 
@@ -43,11 +48,13 @@ const mapStateToDispatch = {};
 export default connect(mapStateToProps, mapStateToDispatch)(Login);
 
 const LoginBody = styled.div`
- transition: all 0.3s ease-in-out;
- height: 100vh;
-  ${props => props.hide && css`
-    margin-left: -100vw;
-  `};
+  transition: all 0.3s ease-in-out;
+  height: 100vh;
+  ${props =>
+    props.hide &&
+    css`
+      margin-left: -100vw;
+    `};
   display: flex;
   flex-direction: column;
 `;

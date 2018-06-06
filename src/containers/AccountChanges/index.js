@@ -12,9 +12,7 @@ class AccountChanges extends React.Component{
             ...getUrlParams(this.props.location)
         }
     }
-
     render(){
-        console.log("this.state.mode", this.state.mode)
         switch (this.state.mode){
             case 'resetPassword':
                 // Display reset password handler and UI.

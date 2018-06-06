@@ -2,22 +2,28 @@ import React from "react";
 import styled, { css } from "styled-components";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
-import profileFotoImgSrc from "../../images/foto.png";
-import getBorderColor from "../../helpers/getBorderColor";
+import { Link } from "react-router-dom";
 import Validation from "react-validation-utils";
+
+/*** components ***/
+import { Input } from "../../components/Input";
+
+/*** actions ***/
+import { saveChanges } from "../../actions/auth/saveChangesInProfile";
+
+/*** else ***/
+import { REQ } from "../../constants/authConst";
+import { EXTERNAL_LINK_HELP_LOGIN_PAGE } from "../../constants/appConst";
+import { fire } from "../../FirebaseConfig/Fire";
+import { getFlagUrl } from "../../helpers/getFlagUrl";
+import getBorderColor from "../../helpers/getBorderColor";
 import {
   emailRule,
   firstNameRule,
   lastNameRule,
   mobileRule
 } from "../../validationRules/rules";
-import { Input } from "../../components/Input";
-import { getFlagUrl } from "../../helpers/getFlagUrl";
-import { EXTERNAL_LINK_HELP_LOGIN_PAGE } from "../../constants/appConst";
-import { Link } from "react-router-dom";
-import { fire } from "../../FirebaseConfig/Fire";
-import { saveChanges } from "../../actions/auth/saveChangesInProfile";
-import { REQ } from "../../constants/authConst";
+import profileFotoImgSrc from "../../images/foto.png";
 
 const Validator = new Validation({
   email: {
@@ -239,7 +245,6 @@ const AccountBody = styled.form`
 const ImageGroup = styled.div`
   display: flex;
   flex-direction: row;
-  //justify-content: center;
 `;
 
 const ProfileImage = styled.img`

@@ -2,24 +2,24 @@ import React, { Component } from "react";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
 import { Switch, Route, withRouter } from "react-router-dom";
-import PageHeader from './components/PageHeader';
-import MenuModal from './components/Modals/MenuModal';
 
 /*** containers ***/
-import PrivateRoute from "./components/Wrappers/PrivateRoute";
 import Home from "./containers/Home/Home";
 import Login from "./containers/Login/Login";
 import SignUp from "./containers/SignUp/SignUp";
-import { NotFound } from "./components/NotFound/NotFound";
-import ErrorModal from './components/Modals/ErrorModal';
 import { AUTH_USER } from "./constants/authConst";
 import AccountSettings from './containers/Account/AccountSettings';
 import AccountChanges from './containers/AccountChanges';
 import ReferFriend from './containers/Account/ReferFriend';
-import {getUserStatus} from "./actions/auth/getUserStatus";
+
+/*** components ***/
+import { NotFound } from "./components/NotFound/NotFound";
+import ErrorModal from './components/Modals/ErrorModal';
+import PrivateRoute from "./components/Wrappers/PrivateRoute";
+import MenuModal from './components/Modals/MenuModal';
+import PageHeader from './components/PageHeader';
 
 class App extends Component {
-
    render() {
     return [
       <ErrorModal key={1} />,
@@ -38,6 +38,12 @@ class App extends Component {
   }
 }
 
+/*** Props Types ***/
+App.propTypes = {
+    isLoading: PropTypes.bool
+};
+
+
 /*** connect ***/
 const mapStateToProps = state => {
   return {
@@ -47,13 +53,7 @@ const mapStateToProps = state => {
   };
 };
 
-const mapStateToDispatch = {
-    getUserStatus
-};
+const mapStateToDispatch = {};
 
 export default withRouter(connect(mapStateToProps, mapStateToDispatch)(App));
 
-/*** Props Types ***/
-App.propTypes = {
-  isLoading: PropTypes.bool
-};

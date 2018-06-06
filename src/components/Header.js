@@ -1,7 +1,9 @@
 import React from "react";
 import PropTypes from "prop-types";
-import logoImgSrc from "../images/logo.png";
 import styled from "styled-components";
+
+/*** else ***/
+import logoImgSrc from "../images/logo.png";
 
 export const Header = props => {
   return (

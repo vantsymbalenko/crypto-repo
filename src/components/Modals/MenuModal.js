@@ -3,12 +3,18 @@ import styled, { css } from "styled-components";
 import { connect } from "react-redux";
 import PropTypes from "prop-types";
 import { Link } from "react-router-dom";
-import { toggleMenu } from "../../actions/modals/toggleMenu";
-import { menuRoutes, additionalMenuRoutes } from "../../constants/menuRoutes";
+
+/*** containers ***/
 import { MenuItem } from "../Menu/MenuItem";
+
+/*** actions ***/
+import { toggleMenu } from "../../actions/modals/toggleMenu";
+import { signOut } from "../../actions/auth/logout/signOut";
+
+/*** else ***/
+import { menuRoutes, additionalMenuRoutes } from "../../constants/menuRoutes";
 import imgLogoSrc from "../../images/logo.png";
 import profileFotoImgSrc from "../../images/foto.png";
-import { signOut } from "../../actions/auth/logout/signOut";
 
 class MenuModal extends React.Component {
   close = e => {
@@ -45,7 +51,9 @@ class MenuModal extends React.Component {
           <AccountSettings>
             <ProfileBlock to={`/account-settings`}>
               <ProfileFoto>
-                <ImgProfile src={this.props.usersData.imgSrc || profileFotoImgSrc} />
+                <ImgProfile
+                  src={this.props.usersData.imgSrc || profileFotoImgSrc}
+                />
               </ProfileFoto>
               <UserTitle>
                 <UserName>{`${firstName} ${lastName}`}</UserName>

@@ -1,8 +1,24 @@
 import React from "react";
-import styled from "styled-components";
-import { connect } from "react-redux";
 import PropTypes from "prop-types";
+import { connect } from "react-redux";
+import styled from "styled-components";
 import { Link, withRouter } from "react-router-dom";
+import Validation from "react-validation-utils";
+
+/*** components ***/
+import { Input } from "../../components/Input";
+import { Modal } from "../../components/Modals/Modal";
+import { CountriesSelect } from "../../components/CountriesSelect/CountriesSelect";
+
+/*** actions ***/
+import { registerNewUser } from "../../actions/registerNewUser";
+import { toggleSignUpSuccessModal } from "../../actions/modals/signUpModals";
+import { REQ } from "../../constants/authConst";
+
+/*** else ***/
+import { getUrlParams } from "../../helpers/getUrlParams";
+import getBorderColor from "../../helpers/getBorderColor";
+import { getFlagUrl } from "../../helpers/getFlagUrl";
 import {
   emailRule,
   firstNameRule,
@@ -10,20 +26,6 @@ import {
   passwordRule,
   mobileRule
 } from "../../validationRules/rules";
-import Validation from "react-validation-utils";
-import { toggleSignUpSuccessModal } from "../../actions/modals/signUpModals";
-
-/*** components ***/
-import { Input } from "../../components/Input";
-import { Modal } from "../../components/Modals/Modal";
-import { CountriesSelect } from "../../components/CountriesSelect/CountriesSelect";
-
-/*** ***/
-import { registerNewUser } from "../../actions/registerNewUser";
-import { getFlagUrl } from "../../helpers/getFlagUrl";
-import getBorderColor from "../../helpers/getBorderColor";
-import {REQ} from "../../constants/authConst";
-import {getUrlParams } from '../../helpers/getUrlParams';
 
 const Validator = new Validation({
   email: {
@@ -50,7 +52,8 @@ const Validator = new Validation({
   },
   mobile: {
     rule: mobileRule,
-    message: "Phone number must contain only digits without letters and special characters"
+    message:
+      "Phone number must contain only digits without letters and special characters"
   }
 });
 
@@ -79,16 +82,16 @@ class FormSignUp extends React.Component {
     const { name, value } = e.target;
     if (name === "password") {
       Validator.updateRules({
-        rePassword: {
+        confirmPassword: {
           repeatRule: val => val === value
         }
-      }).fieldsToValidate(["password", "rePassword"]);
-    } else if (name === "rePassword") {
+      }).fieldsToValidate(["password", "confirmPassword"]);
+    } else if (name === "confirmPassword") {
       Validator.updateRules({
         password: {
           repeatRule: val => val === value
         }
-      }).fieldsToValidate(["password", "rePassword"]);
+      }).fieldsToValidate(["password", "confirmPassword"]);
     }
 
     if (name === "mobileCode") {
@@ -108,15 +111,15 @@ class FormSignUp extends React.Component {
     }
     // this.props.toggleSignUpSuccessModal();
     this.props.registerNewUser({
-        email: this.state.email,
-        password: this.state.password,
-        refCode: this.state.refCode,
-        lastName: this.state.lastName,
-        firstName: this.state.firstName,
-        mobile: this.state.mobile,
-        mobileCode: this.state.mobileCode,
-        countryCode: this.state.countryCode,
-        telegramID: this.state.telegramID
+      email: this.state.email,
+      password: this.state.password,
+      refCode: this.state.refCode,
+      lastName: this.state.lastName,
+      firstName: this.state.firstName,
+      mobile: this.state.mobile,
+      mobileCode: this.state.mobileCode,
+      countryCode: this.state.countryCode,
+      telegramID: this.state.telegramID
     });
   };
 
@@ -141,9 +144,9 @@ class FormSignUp extends React.Component {
       <Form toggle={this.props.toggle}>
         <Modal display={this.state.isShowModal} onClose={this.toggleModal}>
           <CountriesSelect
-            onChange={this.onChange}
             name={"mobileCode"}
             dialCode={this.state.mobileCode}
+            onChange={this.onChange}
             closeModal={this.toggleModal}
           />
         </Modal>
@@ -156,42 +159,43 @@ class FormSignUp extends React.Component {
         />
         <TwoInputRows>
           <Input
-            value={firstName}
             name={`firstName`}
-            borderColor={this.getBorderColor("firstName")}
+            value={firstName}
             labelText={"First Name*"}
             placeholder={"first name"}
             marginRight={`30px`}
+            borderColor={this.getBorderColor("firstName")}
             onChange={this.onChange}
           />
           <Input
-            value={lastName}
             name={`lastName`}
-            borderColor={this.getBorderColor("lastName")}
-            placeholder={"last name"}
+            value={lastName}
             labelText={"Last Name*"}
+            placeholder={"last name"}
+            borderColor={this.getBorderColor("lastName")}
             onChange={this.onChange}
           />
         </TwoInputRows>
         <TwoInputRows>
           <Input
-            value={email}
-            name={`email`}
             type={"email"}
-            placeholder={"enter email address"}
+            name={`email`}
+            value={email}
             labelText={"Email Address*"}
-            onChange={this.onChange}
+            placeholder={"enter email address"}
             borderColor={this.getBorderColor("email")}
+            onChange={this.onChange}
           />
         </TwoInputRows>
         <TwoInputRows>
           <Input
-            value={mobile}
             type={"tel"}
             name={`mobile`}
+            value={mobile}
             labelText={"Mobile Number*"}
-            marginRight={`30px`}
             placeholder={""}
+            marginRight={`30px`}
+            borderColor={this.getBorderColor(`mobile`)}
             onChange={this.onChange}
           >
             <ImgFlag
@@ -201,8 +205,8 @@ class FormSignUp extends React.Component {
             <DialCode>{this.state.mobileCode}</DialCode>
           </Input>
           <Input
-            value={telegramID}
             name={`telegramID`}
+            value={telegramID}
             labelText={"Telegram ID"}
             placeholder={"telegram ID"}
             onChange={this.onChange}
@@ -218,22 +222,22 @@ class FormSignUp extends React.Component {
           </LabelTitlte>
           <TwoInputRows marginTop={"0"}>
             <Input
-              labelMargin={"0"}
               type={"password"}
-              value={password}
               name={`password`}
-              borderColor={this.getBorderColor("password")}
+              value={password}
+              labelMargin={"0"}
               placeholder={"password"}
               marginRight={`30px`}
+              borderColor={this.getBorderColor("password")}
               onChange={this.onChange}
             />
             <Input
-              labelMargin={"0"}
               type={"password"}
-              borderColor={this.getBorderColor("confirmPassword")}
-              value={confirmPassword}
               name={`confirmPassword`}
+              value={confirmPassword}
+              labelMargin={"0"}
               placeholder={"password confirm"}
+              borderColor={this.getBorderColor("confirmPassword")}
               onChange={this.onChange}
             />
           </TwoInputRows>
@@ -252,8 +256,8 @@ class FormSignUp extends React.Component {
         </RulesText>
         <Button
           type={"submit"}
-          onClick={this.onSubmit}
           disabled={this.props.authStatus === REQ}
+          onClick={this.onSubmit}
         >
           Sign Up Now
         </Button>
@@ -263,7 +267,8 @@ class FormSignUp extends React.Component {
 }
 
 FormSignUp.propTypes = {
-  toggle: PropTypes.bool
+  toggle: PropTypes.bool,
+  authStatus: PropTypes.string.isRequired
 };
 
 const mapStateToProps = state => ({
@@ -275,7 +280,9 @@ const mapStateToDispatch = {
   toggleSignUpSuccessModal
 };
 
-export default withRouter(connect(mapStateToProps, mapStateToDispatch)(FormSignUp));
+export default withRouter(
+  connect(mapStateToProps, mapStateToDispatch)(FormSignUp)
+);
 
 const Form = styled.form`
   padding: 17px;
@@ -331,6 +338,7 @@ const RulesText = styled.div`
   line-height: 2;
   letter-spacing: normal;
 `;
+
 const Paragraph = styled.div`
   color: #66688f;
   padding-left: 10px;
@@ -342,6 +350,7 @@ const Paragraph = styled.div`
   line-height: 2;
   letter-spacing: normal;
 `;
+
 const LinkText = styled.a`
   text-decoration: none;
   color: #229ae8;
@@ -350,6 +359,7 @@ const LinkText = styled.a`
     text-decoration: underline;
   }
 `;
+
 const Span = styled.span`
   text-decoration: none;
   color: #229ae8;
@@ -358,6 +368,7 @@ const Span = styled.span`
     text-decoration: underline;
   }
 `;
+
 const Button = styled.button`
   display: block;
   width: 100%;

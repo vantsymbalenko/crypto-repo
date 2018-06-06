@@ -1,40 +1,48 @@
-import React from 'react';
-import {connect} from 'react-redux';
-import PropTypes from 'prop-types';
-import {withRouter} from 'react-router-dom';
-import styled from 'styled-components';
-import {toggleMenu} from "../actions/modals/toggleMenu";
+import React from "react";
+import { connect } from "react-redux";
+import PropTypes from "prop-types";
+import { withRouter } from "react-router-dom";
+import styled from "styled-components";
 
-class PageHeader extends React.Component{
-    render(){
-        console.log("this.props.location.page header", this.props);
-        const page = this.props.location.pathname.substr(1).split("-").join(" ") || "Smart Wallet";
-        return(
-            <PageHeaderBody>
-                <MenuIconButton onClick={this.props.toggleMenu}>
-                   <Bar/>
-                   <Bar/>
-                   <Bar/>
-                </MenuIconButton>
-                <PageTitle>{page}</PageTitle>
-            </PageHeaderBody>
-        );
-    }
+/*** actions ***/
+import { toggleMenu } from "../actions/modals/toggleMenu";
+
+class PageHeader extends React.Component {
+  render() {
+    /*** page home have address / but we need to display "Smart Wallet", after spreed left empty string ***/
+    const page =
+      this.props.location.pathname
+        .substr(1)
+        .split("-")
+        .join(" ") || "Smart Wallet";
+    return (
+      <PageHeaderBody>
+        <MenuIconButton onClick={this.props.toggleMenu}>
+          <Bar />
+          <Bar />
+          <Bar />
+        </MenuIconButton>
+        <PageTitle>{page}</PageTitle>
+      </PageHeaderBody>
+    );
+  }
 }
 
-PageHeader.propTypes = {};
+PageHeader.propTypes = {
+  toggleMenu: PropTypes.func
+};
 
 const mapStateToProps = () => {
-  return {
-
-  }
+  return {};
 };
 
 const mapStateToDispatch = {
   toggleMenu
 };
 
-export default withRouter(connect(mapStateToProps, mapStateToDispatch)(PageHeader));
+export default withRouter(
+  connect(mapStateToProps, mapStateToDispatch)(PageHeader)
+);
 
 const PageHeaderBody = styled.div`
   position: relative;
@@ -53,16 +61,16 @@ const MenuIconButton = styled.button`
 `;
 
 const Bar = styled.div`
-    width: 100%;
-    height: 1px;
-    background-color: #ffffff;
-    margin: 5px 0;
-    transition: 0.4s;
+  width: 100%;
+  height: 1px;
+  background-color: #ffffff;
+  margin: 5px 0;
+  transition: 0.4s;
 `;
 
 const PageTitle = styled.div`
   width: 100%;
-  text-align:center;
+  text-align: center;
   font-family: Helvetica, sans-serif;
   font-size: 14px;
   font-weight: 300;
