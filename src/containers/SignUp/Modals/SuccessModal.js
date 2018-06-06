@@ -24,7 +24,7 @@ export const SuccessModal = props => {
       <AdditionalTextNode>
         If you haven’t received the email within two<br />
         minutes, please check your spam folder. If you still<br />
-        cant see it, resend the email
+          cant see it, resend the email
       </AdditionalTextNode>
       <Link to={`/login`}>
         <Button>Log in now</Button>

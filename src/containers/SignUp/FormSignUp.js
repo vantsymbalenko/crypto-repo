@@ -109,7 +109,6 @@ class FormSignUp extends React.Component {
       // validate all fields in the state to show all error messages
       return this.setState(Validator.validate());
     }
-    // this.props.toggleSignUpSuccessModal();
     this.props.registerNewUser({
       email: this.state.email,
       password: this.state.password,
